@@ -12,8 +12,12 @@ def pre_process_images(X: np.ndarray):
     """
     assert X.shape[1] == 784,\
         f"X.shape[1]: {X.shape[1]}, should be 784"
-    # TODO implement this function (Task 2a)
-    return X
+
+    X_normalized = (X - 127.5) / 127.5
+    # bias trick:
+    X_normalized_bias = np.insert(X_normalized, X_normalized.shape[1], values=1, axis=1)
+
+    return X_normalized_bias
 
 
 def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
@@ -46,6 +50,8 @@ class BinaryModel:
             y: output of model with shape [batch size, 1]
         """
         # TODO implement this function (Task 2a)
+
+
         return None
 
     def backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
