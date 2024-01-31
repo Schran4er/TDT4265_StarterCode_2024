@@ -3,6 +3,11 @@ import utils
 np.random.seed(1)
 
 
+
+def sigmoid(x):
+    return 1/(1 + np.exp(-x))
+
+
 def pre_process_images(X: np.ndarray):
     """
     Args:
@@ -50,9 +55,6 @@ class BinaryModel:
             y: output of model with shape [batch size, 1]
         """
 
-        def sigmoid(x):
-            return 1/(1 + np.exp(-x))
-
         forward_pass = []
         for batch_element in X[:,]:
             sigmoid_result = sigmoid(batch_element.dot(self.w)) # fixme: is dot applied in the right way?
@@ -69,7 +71,14 @@ class BinaryModel:
             outputs: outputs of model of shape: [batch size, 1]
             targets: labels/targets of each image of shape: [batch size, 1]
         """
-        # TODO implement this function (Task 2a)
+        
+        gradients = []
+        for batch_element in X[:,]:  
+            gradient = -(np.multiply(targets - sigmoid(outputs), batch_element))
+            gradients.append(gradient)
+
+        self.grad = np.array(gradients)
+
         assert targets.shape == outputs.shape,\
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
         self.grad = np.zeros_like(self.w)
