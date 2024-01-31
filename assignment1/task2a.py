@@ -38,7 +38,7 @@ class BinaryModel:
 
     def __init__(self):
         # Define number of input nodes
-        self.I = None
+        self.I = 28*28 + 1 # since this is the dimension of each image + bias trick
         self.w = np.zeros((self.I, 1))
         self.grad = None
 
@@ -49,10 +49,17 @@ class BinaryModel:
         Returns:
             y: output of model with shape [batch size, 1]
         """
-        # TODO implement this function (Task 2a)
 
+        def sigmoid(x):
+            return 1/(1 + np.exp(-x))
 
-        return None
+        forward_pass = []
+        for batch_element in X[:,]:
+            sigmoid_result = sigmoid(batch_element.dot(self.w)) # fixme: is dot applied in the right way?
+            forward_pass.append(sigmoid_result)
+        
+        output = np.array(forward_pass)
+        return output
 
     def backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
         """
