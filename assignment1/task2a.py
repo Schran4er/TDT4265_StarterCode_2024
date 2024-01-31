@@ -33,10 +33,14 @@ def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
     Returns:
         Cross entropy error (float)
     """
-    # TODO implement this function (Task 2a)
+
+    y_n = targets
+    y_n_hat = sigmoid(outputs)
+    loss = - np.sum((y_n * np.log(y_n_hat) + (1 - y_n) * np.log(1 - y_n_hat))) / len (y_n_hat) # fixme: check if there isn't a type in here
+
     assert targets.shape == outputs.shape,\
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
-    return 0
+    return loss
 
 
 class BinaryModel:
@@ -71,10 +75,15 @@ class BinaryModel:
             outputs: outputs of model of shape: [batch size, 1]
             targets: labels/targets of each image of shape: [batch size, 1]
         """
-        
+        def sigmoid_derivative(x):
+            sig_x = sigmoid(x)
+            return sig_x * (1 - sig_x)
+
+
         gradients = []
         for batch_element in X[:,]:  
-            gradient = -(np.multiply(targets - sigmoid(outputs), batch_element))
+            gradient1 = -(np.multiply(targets - sigmoid(outputs), batch_element)) # fixme: which one of these is correct, derivative or not?
+            gradient = -(np.multiply(targets - sigmoid_derivative(outputs), batch_element))
             gradients.append(gradient)
 
         self.grad = np.array(gradients)
