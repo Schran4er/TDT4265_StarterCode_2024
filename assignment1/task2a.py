@@ -33,13 +33,14 @@ def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
     Returns:
         Cross entropy error (float)
     """
-
-    y_n = targets
-    y_n_hat = sigmoid(outputs)
-    loss = - np.sum((y_n * np.log(y_n_hat) + (1 - y_n) * np.log(1 - y_n_hat))) / len (y_n_hat) # fixme: check if there isn't a type in here
-
     assert targets.shape == outputs.shape,\
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
+    
+    y_n = targets
+    y_n_hat = outputs
+    C_n = -(y_n * np.log(y_n_hat) + (1 - y_n) * np.log(1 - y_n_hat))
+    loss = np.mean(C_n)
+
     return loss
 
 
@@ -59,12 +60,14 @@ class BinaryModel:
             y: output of model with shape [batch size, 1]
         """
 
-        forward_pass = []
-        for batch_element in X[:,]:
-            sigmoid_result = sigmoid(batch_element.dot(self.w)) # fixme: is dot applied in the right way?
-            forward_pass.append(sigmoid_result)
+        # forward_pass = []
+        # for batch_element in X[:,]:
+        #     sigmoid_result = sigmoid(batch_element.dot(self.w))
+        #     forward_pass.append(sigmoid_result)
+        # output = np.array(forward_pass)
+
+        output = sigmoid(X.dot(self.w))
         
-        output = np.array(forward_pass)
         return output
 
     def backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
@@ -75,24 +78,16 @@ class BinaryModel:
             outputs: outputs of model of shape: [batch size, 1]
             targets: labels/targets of each image of shape: [batch size, 1]
         """
-        def sigmoid_derivative(x):
-            sig_x = sigmoid(x)
-            return sig_x * (1 - sig_x)
-
-
-        gradients = []
-        for batch_element in X[:,]:  
-            gradient1 = -(np.multiply(targets - sigmoid(outputs), batch_element)) # fixme: which one of these is correct, derivative or not?
-            gradient = -(np.multiply(targets - sigmoid_derivative(outputs), batch_element))
-            gradients.append(gradient)
-
-        self.grad = np.array(gradients)
 
         assert targets.shape == outputs.shape,\
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
-        self.grad = np.zeros_like(self.w)
+        
+        grad = -1*(np.transpose(targets - outputs).dot(X))
+        self.grad = np.transpose(grad / len(outputs))    # fixme: it is weird, that this works only with a division by len(outputs)
+
         assert self.grad.shape == self.w.shape,\
             f"Grad shape: {self.grad.shape}, w: {self.w.shape}"
+
 
     def zero_grad(self) -> None:
         self.grad = None
@@ -147,8 +142,8 @@ def main():
         err_msg="Since the weights are all 0's, the sigmoid activation should be 0.5")
 
     # Gradient approximation check for 100 images
-    X_train = X_train[:100]
-    Y_train = Y_train[:100]
+    X_train = X_train[:200]
+    Y_train = Y_train[:200]
     for i in range(2):
         gradient_approximation_test(model, X_train, Y_train)
         model.w = np.random.randn(*model.w.shape)
