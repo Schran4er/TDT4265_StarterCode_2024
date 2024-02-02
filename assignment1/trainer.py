@@ -90,5 +90,22 @@ class BaseTrainer:
 
                     # TODO (Task 2d): Implement early stopping here.
                     # You can access the validation loss in val_history["loss"]
+                    EARLY_STOPPING = True
+
+                    if EARLY_STOPPING:
+                        if len(val_history["loss"]) > 10:
+                            val_history_keys = list(val_history["loss"].keys())
+                            
+                            prev_best_loss = val_history["loss"][val_history_keys[-11]] # because we need to check against the 10 next steps, so this needs to be compared to the -11th step
+                            better_loss_found = False
+                            for new_val_loss_key in val_history_keys[-10:]:
+                                new_loss = val_history["loss"][new_val_loss_key]
+                                if new_loss < prev_best_loss:
+                                    better_loss_found = True
+                                    break 
+
+                            if not better_loss_found:
+                                return train_history, val_history
+
                 global_step += 1
         return train_history, val_history

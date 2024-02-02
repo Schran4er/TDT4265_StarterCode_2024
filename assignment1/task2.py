@@ -70,7 +70,8 @@ class LogisticTrainer(BaseTrainer):
 
 def main():
     # hyperparameters DO NOT CHANGE IF NOT SPECIFIED IN ASSIGNMENT TEXT
-    num_epochs = 50
+    num_epochs = 50 # for 2b-c
+    num_epochs = 500 # for 2d-e
     learning_rate = 0.05
     batch_size = 128
     shuffle_dataset = False
