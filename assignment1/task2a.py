@@ -142,8 +142,8 @@ def main():
         err_msg="Since the weights are all 0's, the sigmoid activation should be 0.5")
 
     # Gradient approximation check for 100 images
-    X_train = X_train[:200]
-    Y_train = Y_train[:200]
+    X_train = X_train[:100]
+    Y_train = Y_train[:100]
     for i in range(2):
         gradient_approximation_test(model, X_train, Y_train)
         model.w = np.random.randn(*model.w.shape)
