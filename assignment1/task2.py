@@ -17,9 +17,10 @@ def calculate_accuracy(X: np.ndarray, targets: np.ndarray, model: BinaryModel) -
     """
     
     predictions = model.forward(X)
-    correct_predictions = np.where((abs(targets - predictions)) >= 0.5)
+    predictions_rounded = (predictions >= 0.5).astype(int)
+    correct_predictions = (targets == predictions_rounded).sum() # "The prediction is determined as 1 if ŷ ≥ 0.5 else 0"
 
-    accuracy = len(correct_predictions) / len(predictions)
+    accuracy = correct_predictions / len(predictions)
     return accuracy
 
 
