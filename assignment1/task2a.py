@@ -82,8 +82,11 @@ class BinaryModel:
         assert targets.shape == outputs.shape,\
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
         
-        grad = -1*(np.transpose(targets - outputs).dot(X))
-        self.grad = np.transpose(grad / len(outputs))    # fixme: it is weird, that this works only with a division by len(outputs)
+        grad = -1*((X.T).dot(targets - outputs))
+        self.grad = grad / len(outputs)    # fixme: it is weird, that this works only with a division by len(outputs)
+
+        # error = outputs - targets
+        # self.grad = np.dot(X.T, error) / X.shape[0]
 
         assert self.grad.shape == self.w.shape,\
             f"Grad shape: {self.grad.shape}, w: {self.w.shape}"
