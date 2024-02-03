@@ -16,8 +16,10 @@ def calculate_accuracy(X: np.ndarray, targets: np.ndarray, model: SoftmaxModel) 
     Returns:
         Accuracy (float)
     """
-    # TODO: Implement this function (task 3c)
-    accuracy = 0
+    outputs = model.forward(X)
+    outputs = np.argmax(outputs, axis=1)
+    targets = np.argmax(targets, axis=1)
+    accuracy = np.mean(outputs == targets)
     return accuracy
 
 
@@ -36,7 +38,10 @@ class SoftmaxTrainer(BaseTrainer):
             loss value (float) on batch
         """
         # TODO: Implement this function (task 3b)
-        loss = 0
+        outputs = self.model.forward(X_batch)   
+        self.model.backward(X_batch, outputs, Y_batch)   
+        self.model.w -= self.learning_rate * self.model.grad
+        loss = cross_entropy_loss(Y_batch, outputs)
         return loss
 
     def validation_step(self):
@@ -112,7 +117,7 @@ def main():
     plt.xlabel("Number of Training Steps")
     plt.ylabel("Accuracy")
     plt.legend()
-    plt.savefig("task3b_softmax_train_accuracy.png")
+    plt.savefig("task3c_softmax_train_accuracy.png")
     plt.show()
 
     # Train a model with L2 regularization (task 4b)
