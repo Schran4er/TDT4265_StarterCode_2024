@@ -30,7 +30,7 @@ class LogisticTrainer(BaseTrainer):
         """
         Perform forward, backward and gradient descent step here.
         The function is called once for every batch (see trainer.py) to perform the train step.
-        The function returns the mean loss value which is then automatically logged in our variable self.train_history.
+        The function returns the mean loss value which is then automatically logged in our variable self.train_history.     #! TODO ?!
 
         Args:
             X: one batch of images
@@ -70,7 +70,7 @@ class LogisticTrainer(BaseTrainer):
 
 def main():
     # hyperparameters DO NOT CHANGE IF NOT SPECIFIED IN ASSIGNMENT TEXT
-    # num_epochs = 50 # for 2b-c
+    num_epochs = 50 # for 2b-c
     num_epochs = 500 # for 2d-e
     learning_rate = 0.05
     batch_size = 128

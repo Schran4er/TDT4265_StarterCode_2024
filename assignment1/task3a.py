@@ -4,7 +4,7 @@ from task2a import pre_process_images
 np.random.seed(1)
 
 
-def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray):
+def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray, use_L2_reg=False, w=None, l2_reg_lambda=None):
     """
     Args:
         targets: labels/targets of each image of shape: [batch size, num_classes]
@@ -16,15 +16,17 @@ def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray):
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
 
     C_n_w = -1*(np.sum(targets * np.log(outputs)))
+    if use_L2_reg: C_n_w += l2_reg_lambda * np.sum(w**2)
     loss = C_n_w / len(targets)
     return loss
 
     
 class SoftmaxModel:
 
-    def __init__(self, l2_reg_lambda: float):
+    def __init__(self, l2_reg_lambda: float, use_L2_reg=False):
         # Define number of input nodes
         self.I = 784 + 1
+        self.use_L2_reg=use_L2_reg #use L2 regularization or not
 
         # Define number of output nodes
         self.num_outputs = 10
@@ -59,7 +61,28 @@ class SoftmaxModel:
         assert targets.shape == outputs.shape,\
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
         
-        self.grad = -1*(X.T.dot(targets - outputs)) / len(X)
+        if self.use_L2_reg:
+            # print(self.l2_reg_lambda)
+            # print(self.w)
+            # print(self.w.shape)
+            # print(type(self.w))
+            # import pickle
+            # with open('test', 'wb') as handle:
+            #     pickle.dump(self.w, handle, protocol=pickle.HIGHEST_PROTOCOL)
+            # self.grad = -1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * np.sum(self.w) / len(X)
+
+            ## budgets
+            # print(np.max( -1*(X.T.dot(targets - outputs)) / len(X)))
+            # print(np.max(2 * self.l2_reg_lambda * self.w / len(X)))
+            # print(np.max(-1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * self.w / len(X)))
+            # print()
+            # self.grad = -1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * self.w / len(X)
+            error = outputs - targets
+            self.grad = np.dot(X.T, error) / X.shape[0]
+            self.grad += self.l2_reg_lambda * 2 * self.w
+        else:
+            # print(self.w)
+            self.grad = -1*(X.T.dot(targets - outputs)) / len(X)
 
         assert self.grad.shape == self.w.shape,\
             f"Grad shape: {self.grad.shape}, w: {self.w.shape}"
