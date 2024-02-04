@@ -62,26 +62,8 @@ class SoftmaxModel:
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
         
         if self.use_L2_reg:
-            # print(self.l2_reg_lambda)
-            # print(self.w)
-            # print(self.w.shape)
-            # print(type(self.w))
-            # import pickle
-            # with open('test', 'wb') as handle:
-            #     pickle.dump(self.w, handle, protocol=pickle.HIGHEST_PROTOCOL)
-            # self.grad = -1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * np.sum(self.w) / len(X)
-
-            ## budgets
-            # print(np.max( -1*(X.T.dot(targets - outputs)) / len(X)))
-            # print(np.max(2 * self.l2_reg_lambda * self.w / len(X)))
-            # print(np.max(-1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * self.w / len(X)))
-            # print()
-            # self.grad = -1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * self.w / len(X)
-            error = outputs - targets
-            self.grad = np.dot(X.T, error) / X.shape[0]
-            self.grad += self.l2_reg_lambda * 2 * self.w
+            self.grad = -1*(X.T.dot(targets - outputs)) / len(X) + 2 * self.l2_reg_lambda * self.w
         else:
-            # print(self.w)
             self.grad = -1*(X.T.dot(targets - outputs)) / len(X)
 
         assert self.grad.shape == self.w.shape,\
