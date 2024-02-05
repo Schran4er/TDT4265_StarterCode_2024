@@ -2,6 +2,7 @@ from typing import Generator
 import mnist
 import numpy as np
 import matplotlib.pyplot as plt
+np.random.seed(0)
 
 
 def batch_loader(
@@ -24,11 +25,11 @@ def batch_loader(
         num_batches = int(np.ceil(len(X) / batch_size))
     indices = list(range(len(X)))
 
+    if shuffle: np.random.shuffle(indices)
+
     for i in range(num_batches):
         # select a set of indices for each batch of samples
         batch_indices = indices[i*batch_size:(i+1)*batch_size]
-        if shuffle: # 2e: shuffle the dataset # TODO: seems weird that it doesn't really show a difference
-            np.random.shuffle(batch_indices)
         x = X[batch_indices]
         y = Y[batch_indices]
         # return both images (x) and labels (y)
