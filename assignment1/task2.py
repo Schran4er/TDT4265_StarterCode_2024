@@ -71,7 +71,7 @@ class LogisticTrainer(BaseTrainer):
 def main():
     # hyperparameters DO NOT CHANGE IF NOT SPECIFIED IN ASSIGNMENT TEXT
     num_epochs = 50 # for 2b-c
-    num_epochs = 500 # for 2d-e
+    # num_epochs = 500 # for 2d-e
     learning_rate = 0.05
     batch_size = 128
     shuffle_dataset = False
@@ -122,7 +122,7 @@ def main():
     plt.xlabel("Number of Training Steps")
     plt.ylabel("Accuracy")
     plt.legend()
-    plt.savefig("task2b_binary_train_accuracy.png")
+    plt.savefig("task2c_binary_train_accuracy.png")
     plt.show()
 
     # Task 2e - Create a comparison between training with and without shuffling

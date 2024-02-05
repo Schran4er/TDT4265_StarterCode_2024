@@ -105,6 +105,7 @@ class BaseTrainer:
                                     break 
 
                             if not better_loss_found:
+                                print(f"Early stopping at epoch: {epoch}")
                                 return train_history, val_history
 
                 global_step += 1
