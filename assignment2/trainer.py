@@ -87,6 +87,23 @@ class BaseTrainer:
                     train_history["accuracy"][global_step] = accuracy_train
                     val_history["loss"][global_step] = val_loss
                     val_history["accuracy"][global_step] = accuracy_val
-                    # TODO: Implement early stopping (copy from last assignment)
+                    EARLY_STOPPING = True
+                    NUMBER_OF_STEPS_UNTIL_STOP = 50
+
+                    if EARLY_STOPPING:
+                        if len(val_history["loss"]) > NUMBER_OF_STEPS_UNTIL_STOP:
+                            val_history_keys = list(val_history["loss"].keys())
+                            
+                            prev_best_loss = val_history["loss"][val_history_keys[-(NUMBER_OF_STEPS_UNTIL_STOP+1)]] 
+                            better_loss_found = False
+                            for new_val_loss_key in val_history_keys[-NUMBER_OF_STEPS_UNTIL_STOP:]:
+                                new_loss = val_history["loss"][new_val_loss_key]
+                                if new_loss < prev_best_loss:
+                                    better_loss_found = True
+                                    break 
+
+                            if not better_loss_found:
+                                print(f"Early stopping at epoch: {epoch}")
+                                return train_history, val_history
                 global_step += 1
         return train_history, val_history
