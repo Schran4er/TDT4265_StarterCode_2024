@@ -13,8 +13,17 @@ def pre_process_images(X: np.ndarray):
         X: images of shape [batch size, 785] normalized as described in task2a
     """
     assert X.shape[1] == 784, f"X.shape[1]: {X.shape[1]}, should be 784"
-    # TODO implement this function (Task 2a)
-    return X
+    mean = X.mean()
+    std = X.std()
+
+    print(f"mean: {mean}, std: {std}")
+
+    X_normalized = (X - mean) / std
+
+    X_normalized_bias = np.insert(X_normalized, X_normalized.shape[1], values=1, axis=1) 
+    # todo: is it correct to add the "bias 1" after the normalization or should it be added before it?
+
+    return X_normalized_bias
 
 
 def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
