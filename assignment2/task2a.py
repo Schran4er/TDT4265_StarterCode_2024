@@ -66,7 +66,7 @@ class SoftmaxModel:
             1
         )  # Always reset random seed before weight init to get comparable results.
         # Define number of input nodes
-        self.I = None
+        self.I = 785    # None          # todo? was originally None, changed to 785
         self.use_improved_sigmoid = use_improved_sigmoid
         self.use_relu = use_relu
         self.use_improved_weight_init = use_improved_weight_init
@@ -97,7 +97,25 @@ class SoftmaxModel:
         # TODO implement this function (Task 2b)
         # HINT: For performing the backward pass, you can save intermediate activations in variables in the forward pass.
         # such as self.hidden_layer_output = ...
-        return None
+
+        def sigmoid(x):
+            return 1 / (1 + np.exp(-x))
+        def sigmoid_derivative(x):
+            return sigmoid(x) * (1 - sigmoid(x))
+        def softmax(Z):
+            return np.exp(Z) / np.sum(np.exp(Z))    # for input vector Z
+        
+        # input -> hidden layer
+        Z_J = X.dot(self.ws[0])
+        A_J = sigmoid(Z_J)
+        self.hidden_layer_output_A = A_J
+        self.hidden_layer_output_sigmoid_derivative = sigmoid_derivative(Z_J)
+
+        # hidden -> output layer
+        Z_K = A_J.dot(self.ws[1])
+        Y_hat = softmax(Z_K)
+    
+        return Y_hat
 
     def backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
         """
