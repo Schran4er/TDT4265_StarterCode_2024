@@ -130,9 +130,38 @@ class SoftmaxModel:
         assert (
             targets.shape == outputs.shape
         ), f"Output shape: {outputs.shape}, targets: {targets.shape}"
+
         # A list of gradients.
         # For example, self.grads[0] will be the gradient for the first hidden layer
-        self.grads = []
+        # self.grads = [None, None]
+        self.zero_grad()
+
+        # hidden -> output layer
+        grad_temp = np.zeros(self.ws[1].shape).T
+
+        # evaluate over all samples
+        for i in range(X.shape[0]):
+            grad_temp += np.matmul((targets - outputs)[i].reshape(-1, 1), self.hidden_layer_output_A[i].T.reshape(1, -1))
+
+        # transpose and divide by number of samples
+        self.grads[1] = grad_temp.T / X.shape[0]
+
+
+        # input -> hidden layer
+        grad_temp = np.zeros(self.ws[0].shape).T
+        
+        # evaluate over all samples
+        for i in range(X.shape[0]):
+            grad_temp += np.multiply(self.hidden_layer_output_sigmoid_derivative[i].reshape(-1, 1), 
+                    np.matmul(
+                        np.matmul(self.ws[1], (targets - outputs)[i].reshape(-1, 1)), 
+                        X[i].reshape(-1, 1).T
+                    )
+                )
+            
+        # transpose and divide by number of samples
+        self.grads[0] = grad_temp.T / X.shape[0]
+
         for grad, w in zip(self.grads, self.ws):
             assert (
                 grad.shape == w.shape
