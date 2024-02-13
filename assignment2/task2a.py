@@ -13,15 +13,22 @@ def pre_process_images(X: np.ndarray):
         X: images of shape [batch size, 785] normalized as described in task2a
     """
     assert X.shape[1] == 784, f"X.shape[1]: {X.shape[1]}, should be 784"
-    mean = X.mean()
-    std = X.std()
 
-    print(f"mean: {mean}, std: {std}")
+    # mean = X.mean()
+    # std = X.std()
+    # print(f"mean: {mean}, std: {std}")
+
+    X_train, _, X_val, _ = utils.load_full_mnist()
+    X_complete = np.concatenate((X_train, X_val), axis=0)
+    mean = X_complete.mean()
+    std = X_complete.std()
+    # print(f"total mean: {mean}, total std: {std}")
 
     X_normalized = (X - mean) / std
 
     X_normalized_bias = np.insert(X_normalized, X_normalized.shape[1], values=1, axis=1) 
     # todo: is it correct to add the "bias 1" after the normalization or should it be added before it?
+    ## --> Macht keinen Unterschied (solange der bias nicht auf 0 normalisiert wird) würde ich sagen, da das dann dynamisch durch die Gewichte ausgeglichen wird?
 
     return X_normalized_bias
 
