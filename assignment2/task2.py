@@ -19,7 +19,11 @@ def calculate_accuracy(
         Accuracy (float)
     """
     # TODO: Implement this function (copy from last assignment)
-    accuracy = 0
+    predictions = model.forward(X)
+    predictions_rounded = (predictions >= 0.5).astype(int)
+    correct_predictions = (targets == predictions_rounded).sum() # "The prediction is determined as 1 if ŷ ≥ 0.5 else 0"
+
+    accuracy = correct_predictions / len(predictions)
     return accuracy
 
 
@@ -55,8 +59,11 @@ class SoftmaxTrainer(BaseTrainer):
 
         loss = 0
 
-            self.model.ws[layer_idx] = (
-                self.model.ws[layer_idx] - self.learning_rate * grad
+        logits = self.model.forward(X_batch)
+        self.model.backward(X_batch, logits, Y_batch)   
+
+        for layer_idx in range(len(self.model.ws)):
+            self.model.ws[layer_idx] = self.model.ws[layer_idx] - self.learning_rate * self.model.grads[layer_idx]
         loss=cross_entropy_loss(Y_batch, logits)  # sol
 
         return loss
@@ -109,6 +116,11 @@ def main():
     model=SoftmaxModel(
         neurons_per_layer, use_improved_sigmoid, use_improved_weight_init, use_relu
     )
+
+    for layer_idx, w in enumerate(model.ws):
+        model.ws[layer_idx] = np.random.uniform(-1, 1, size=w.shape)
+    # print(f"number of parameters (weights + biases): {model.ws[0].shape[0]*model.ws[0].shape[1] + model.ws[1].shape[0]*model.ws[1].shape[1]}")     # for 2d)
+
     trainer=SoftmaxTrainer(
         momentum_gamma,
         use_momentum,

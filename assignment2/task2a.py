@@ -44,7 +44,8 @@ def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray, use_L2_reg=Fals
     assert targets.shape == outputs.shape,\
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
 
-    C_n_w = -1*(np.sum(targets * np.log(outputs)))
+    # C_n_w = -1*(np.sum(targets * np.log(outputs)))
+    C_n_w = -1*(np.sum(targets * np.log(outputs + 1e-12)))      # add small number to avoid log(0) = -inf
     if use_L2_reg: C_n_w += l2_reg_lambda * np.sum(w**2)
     loss = C_n_w / len(targets)
     return loss
@@ -101,8 +102,9 @@ class SoftmaxModel:
         def sigmoid_derivative(x):
             return sigmoid(x) * (1 - sigmoid(x))
         def softmax(Z):
+            Z = Z - np.max(Z)       # Softmax numerical stability!
             return np.exp(Z) / np.sum(np.exp(Z))    # for input vector Z
-        
+
         # input -> hidden layer
         Z_J = X.dot(self.ws[0])
         A_J = sigmoid(Z_J)
