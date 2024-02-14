@@ -14,14 +14,14 @@ def pre_process_images(X: np.ndarray):
     """
     assert X.shape[1] == 784, f"X.shape[1]: {X.shape[1]}, should be 784"
 
-    # mean = X.mean()
-    # std = X.std()
-    # print(f"mean: {mean}, std: {std}")
+    mean = X.mean()
+    std = X.std()
+    print(f"mean: {mean}, std: {std}")
 
-    X_train, _, X_val, _ = utils.load_full_mnist()
-    X_complete = np.concatenate((X_train, X_val), axis=0)
-    mean = X_complete.mean()
-    std = X_complete.std()
+    # X_train, _, X_val, _ = utils.load_full_mnist()
+    # X_complete = np.concatenate((X_train, X_val), axis=0)
+    # mean = X_complete.mean()
+    # std = X_complete.std()
     # print(f"total mean: {mean}, total std: {std}")
 
     X_normalized = (X - mean) / std
@@ -33,22 +33,20 @@ def pre_process_images(X: np.ndarray):
     return X_normalized_bias
 
 
-def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
+def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray, use_L2_reg=False, w=None, l2_reg_lambda=None):
     """
     Args:
-        targets: labels/targets of each image of shape: [batch size, 1]
-        outputs: outputs of model of shape: [batch size, 1]
+        targets: labels/targets of each image of shape: [batch size, num_classes]
+        outputs: outputs of model of shape: [batch size, num_classes]
     Returns:
         Cross entropy error (float)
     """
     assert targets.shape == outputs.shape,\
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
-    
-    y_n = targets
-    y_n_hat = outputs
-    C_n = -(y_n * np.log(y_n_hat) + (1 - y_n) * np.log(1 - y_n_hat))
-    loss = np.mean(C_n)
 
+    C_n_w = -1*(np.sum(targets * np.log(outputs)))
+    if use_L2_reg: C_n_w += l2_reg_lambda * np.sum(w**2)
+    loss = C_n_w / len(targets)
     return loss
 
 
@@ -141,7 +139,7 @@ class SoftmaxModel:
 
         # evaluate over all samples
         for i in range(X.shape[0]):
-            grad_temp += np.matmul((targets - outputs)[i].reshape(-1, 1), self.hidden_layer_output_A[i].T.reshape(1, -1))
+            grad_temp += np.matmul((outputs - targets)[i].reshape(-1, 1), self.hidden_layer_output_A[i].T.reshape(1, -1))
 
         # transpose and divide by number of samples
         self.grads[1] = grad_temp.T / X.shape[0]
@@ -154,7 +152,7 @@ class SoftmaxModel:
         for i in range(X.shape[0]):
             grad_temp += np.multiply(self.hidden_layer_output_sigmoid_derivative[i].reshape(-1, 1), 
                     np.matmul(
-                        np.matmul(self.ws[1], (targets - outputs)[i].reshape(-1, 1)), 
+                        np.matmul(self.ws[1], (outputs - targets)[i].reshape(-1, 1)), 
                         X[i].reshape(-1, 1).T
                     )
                 )
