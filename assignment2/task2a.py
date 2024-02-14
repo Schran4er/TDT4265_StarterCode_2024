@@ -134,31 +134,28 @@ class SoftmaxModel:
         # self.grads = [None, None]
         self.zero_grad()
 
-        # hidden -> output layer
-        grad_temp = np.zeros(self.ws[1].shape).T
+        # # hidden -> output layer
+        # grad_temp = np.zeros(self.ws[1].shape).T
+        # # evaluate over all samples
+        # for i in range(X.shape[0]):
+        #     err_2 = -(outputs[i] - targets[i]).reshape(-1, 1)
+        #     grad_temp += np.matmul(err_2, self.hidden_layer_output_A[i].T.reshape(1, -1))
+        # # transpose and divide by number of samples
+        # self.grads[1] = grad_temp.T / X.shape[0]
+        err_2 = -(outputs - targets)
+        self.grads[1] = np.dot(self.hidden_layer_output_A.T, err_2) / X.shape[0]
 
-        # evaluate over all samples
-        for i in range(X.shape[0]):
-            grad_temp += np.matmul((outputs - targets)[i].reshape(-1, 1), self.hidden_layer_output_A[i].T.reshape(1, -1))
-
-        # transpose and divide by number of samples
-        self.grads[1] = grad_temp.T / X.shape[0]
-
-
-        # input -> hidden layer
-        grad_temp = np.zeros(self.ws[0].shape).T
-        
-        # evaluate over all samples
-        for i in range(X.shape[0]):
-            grad_temp += np.multiply(self.hidden_layer_output_sigmoid_derivative[i].reshape(-1, 1), 
-                    np.matmul(
-                        np.matmul(self.ws[1], (outputs - targets)[i].reshape(-1, 1)), 
-                        X[i].reshape(-1, 1).T
-                    )
-                )
-            
-        # transpose and divide by number of samples
-        self.grads[0] = grad_temp.T / X.shape[0]
+        # # input -> hidden layer
+        # grad_temp = np.zeros(self.ws[0].shape).T
+        # # evaluate over all samples
+        # for i in range(X.shape[0]):
+        #     err_2 = -(outputs[i] - targets[i]).reshape(-1, 1)
+        #     err_1 = np.multiply(self.hidden_layer_output_sigmoid_derivative[i].reshape(-1, 1), np.matmul(self.ws[1], err_2))
+        #     grad_temp += np.matmul(err_1, X[i].reshape(1, -1))
+        # # transpose and divide by number of samples
+        # self.grads[0] = grad_temp.T / X.shape[0]
+        err_1 = np.multiply(self.hidden_layer_output_sigmoid_derivative, np.dot(err_2, self.ws[1].T))
+        self.grads[0] = np.dot(X.T, err_1) / X.shape[0]
 
         for grad, w in zip(self.grads, self.ws):
             assert (
