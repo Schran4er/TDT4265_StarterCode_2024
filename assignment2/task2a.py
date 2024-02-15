@@ -14,6 +14,7 @@ def pre_process_images(X: np.ndarray):
     """
     assert X.shape[1] == 784, f"X.shape[1]: {X.shape[1]}, should be 784"
 
+    # return np.insert(X, X.shape[1], values=1, axis=1)
     mean = X.mean()
     std = X.std()
     print(f"mean: {mean}, std: {std}")
@@ -44,9 +45,8 @@ def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray, use_L2_reg=Fals
     assert targets.shape == outputs.shape,\
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
 
-    # C_n_w = -1*(np.sum(targets * np.log(outputs)))
-    C_n_w = -1*(np.sum(targets * np.log(outputs + 1e-12)))      # add small number to avoid log(0) = -inf
-    if use_L2_reg: C_n_w += l2_reg_lambda * np.sum(w**2)
+    C_n_w = -1*(np.sum(targets * np.log(outputs)))
+    # C_n_w = -1*(np.sum(targets * np.log(outputs + 1e-12)))      # add small number to avoid log(0) = -inf
     loss = C_n_w / len(targets)
     return loss
 
@@ -101,9 +101,12 @@ class SoftmaxModel:
             return 1 / (1 + np.exp(-x))
         def sigmoid_derivative(x):
             return sigmoid(x) * (1 - sigmoid(x))
-        def softmax(Z):
-            Z = Z - np.max(Z)       # Softmax numerical stability!
-            return np.exp(Z) / np.sum(np.exp(Z))    # for input vector Z
+        def softmax(Z: np.ndarray) -> np.ndarray:
+            # ## Softmax for [batch size, num_outputs] !!
+            # term1 = np.exp(Z.T)
+            # term2 = np.sum(term1, axis=0)
+            # return (term1 / term2).T
+            return np.exp(Z) / np.sum(np.exp(Z), axis=1, keepdims=True)     # from assignement 1
 
         # input -> hidden layer
         Z_J = X.dot(self.ws[0])
@@ -136,28 +139,15 @@ class SoftmaxModel:
         # self.grads = [None, None]
         self.zero_grad()
 
-        # # hidden -> output layer
-        # grad_temp = np.zeros(self.ws[1].shape).T
-        # # evaluate over all samples
-        # for i in range(X.shape[0]):
-        #     err_2 = -(outputs[i] - targets[i]).reshape(-1, 1)
-        #     grad_temp += np.matmul(err_2, self.hidden_layer_output_A[i].T.reshape(1, -1))
-        # # transpose and divide by number of samples
-        # self.grads[1] = grad_temp.T / X.shape[0]
-        err_2 = -(outputs - targets)
-        self.grads[1] = np.dot(self.hidden_layer_output_A.T, err_2) / X.shape[0]
+        # hidden -> output layer
+        err_2 = (outputs - targets).T
+        self.grads[1] = np.dot(err_2, self.hidden_layer_output_A) / X.shape[0]
+        self.grads[1] = self.grads[1].T
 
-        # # input -> hidden layer
-        # grad_temp = np.zeros(self.ws[0].shape).T
-        # # evaluate over all samples
-        # for i in range(X.shape[0]):
-        #     err_2 = -(outputs[i] - targets[i]).reshape(-1, 1)
-        #     err_1 = np.multiply(self.hidden_layer_output_sigmoid_derivative[i].reshape(-1, 1), np.matmul(self.ws[1], err_2))
-        #     grad_temp += np.matmul(err_1, X[i].reshape(1, -1))
-        # # transpose and divide by number of samples
-        # self.grads[0] = grad_temp.T / X.shape[0]
-        err_1 = np.multiply(self.hidden_layer_output_sigmoid_derivative, np.dot(err_2, self.ws[1].T))
-        self.grads[0] = np.dot(X.T, err_1) / X.shape[0]
+        # input -> hidden layer
+        err_1 = np.multiply(self.hidden_layer_output_sigmoid_derivative.T, np.dot(self.ws[1], err_2))
+        self.grads[0] = np.dot(err_1, X) / X.shape[0]
+        self.grads[0] = self.grads[0].T
 
         for grad, w in zip(self.grads, self.ws):
             assert (
