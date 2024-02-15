@@ -19,12 +19,6 @@ def pre_process_images(X: np.ndarray):
     std = X.std()
     print(f"mean: {mean}, std: {std}")
 
-    # X_train, _, X_val, _ = utils.load_full_mnist()
-    # X_complete = np.concatenate((X_train, X_val), axis=0)
-    # mean = X_complete.mean()
-    # std = X_complete.std()
-    # print(f"total mean: {mean}, total std: {std}")
-
     X_normalized = (X - mean) / std
 
     X_normalized_bias = np.insert(X_normalized, X_normalized.shape[1], values=1, axis=1) 
@@ -65,7 +59,7 @@ class SoftmaxModel:
             1
         )  # Always reset random seed before weight init to get comparable results.
         # Define number of input nodes
-        self.I = 785    # None          # todo? was originally None, changed to 785
+        self.I = 785
         self.use_improved_sigmoid = use_improved_sigmoid
         self.use_relu = use_relu
         self.use_improved_weight_init = use_improved_weight_init
@@ -93,7 +87,7 @@ class SoftmaxModel:
         Returns:
             y: output of model with shape [batch size, num_outputs]
         """
-        # TODO implement this function (Task 2b)
+        # (Task 2b)
         # HINT: For performing the backward pass, you can save intermediate activations in variables in the forward pass.
         # such as self.hidden_layer_output = ...
 
@@ -103,9 +97,6 @@ class SoftmaxModel:
             return sigmoid(x) * (1 - sigmoid(x))
         def softmax(Z: np.ndarray) -> np.ndarray:
             # ## Softmax for [batch size, num_outputs] !!
-            # term1 = np.exp(Z.T)
-            # term2 = np.sum(term1, axis=0)
-            # return (term1 / term2).T
             return np.exp(Z) / np.sum(np.exp(Z), axis=1, keepdims=True)     # from assignement 1
 
         # input -> hidden layer
@@ -129,14 +120,13 @@ class SoftmaxModel:
             outputs: outputs of model of shape: [batch size, num_outputs]
             targets: labels/targets of each image of shape: [batch size, num_classes]
         """
-        # TODO implement this function (Task 2b)
+        # (Task 2b)
         assert (
             targets.shape == outputs.shape
         ), f"Output shape: {outputs.shape}, targets: {targets.shape}"
 
         # A list of gradients.
         # For example, self.grads[0] will be the gradient for the first hidden layer
-        # self.grads = [None, None]
         self.zero_grad()
 
         # hidden -> output layer

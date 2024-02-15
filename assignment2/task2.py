@@ -18,7 +18,7 @@ def calculate_accuracy(
     Returns:
         Accuracy (float)
     """
-    # TODO: Implement this function (copy from last assignment)
+    # copied from assignement 1
     outputs = model.forward(X)
     outputs = np.argmax(outputs, axis=1)
     targets = np.argmax(targets, axis=1)
@@ -54,8 +54,7 @@ class SoftmaxTrainer(BaseTrainer):
         Returns:
             loss value (float) on batch
         """
-        # TODO: Implement this function (task 2c)
-
+        # (task 2c)
         loss = 0
 
         logits = self.model.forward(X_batch)
