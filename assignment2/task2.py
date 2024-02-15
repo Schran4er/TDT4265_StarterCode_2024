@@ -19,11 +19,10 @@ def calculate_accuracy(
         Accuracy (float)
     """
     # TODO: Implement this function (copy from last assignment)
-    predictions = model.forward(X)
-    predictions_rounded = (predictions >= 0.5).astype(int)
-    correct_predictions = (targets == predictions_rounded).sum() # "The prediction is determined as 1 if ŷ ≥ 0.5 else 0"
-
-    accuracy = correct_predictions / len(predictions)
+    outputs = model.forward(X)
+    outputs = np.argmax(outputs, axis=1)
+    targets = np.argmax(targets, axis=1)
+    accuracy = np.mean(outputs == targets)
     return accuracy
 
 
