@@ -95,20 +95,29 @@ class SoftmaxModel:
             return 1 / (1 + np.exp(-x))
         def sigmoid_derivative(x):
             return sigmoid(x) * (1 - sigmoid(x))
-        def softmax(Z: np.ndarray) -> np.ndarray:
-            # ## Softmax for [batch size, num_outputs] !!
+        def softmax(Z: np.ndarray) -> np.ndarray:       # Softmax for [batch size, num_outputs] !!
             return np.exp(Z) / np.sum(np.exp(Z), axis=1, keepdims=True)     # from assignement 1
 
-        # input -> hidden layer
-        Z_J = X.dot(self.ws[0])
-        A_J = sigmoid(Z_J)
-        self.hidden_layer_output_A = A_J
-        self.hidden_layer_output_sigmoid_derivative = sigmoid_derivative(Z_J)
+        self.hidden_layer_output_A = []
+        self.hidden_layer_output_sigmoid_derivative = []
 
-        # hidden -> output layer
-        Z_K = A_J.dot(self.ws[1])
-        Y_hat = softmax(Z_K)
-    
+        # input -> first hidden layer
+        Z = X.dot(self.ws[0])
+        A = sigmoid(Z)
+        self.hidden_layer_output_A.append(A)
+        self.hidden_layer_output_sigmoid_derivative.append(sigmoid_derivative(Z))
+
+        # first hidden layer -> other hidden layers
+        for i in np.arange(1, len(self.ws)-1):
+            Z = A.dot(self.ws[i])
+            A = sigmoid(Z)
+            self.hidden_layer_output_A.append(A)
+            self.hidden_layer_output_sigmoid_derivative.append(sigmoid_derivative(Z))
+
+        # last hidden layer -> output layer
+        Z = A.dot(self.ws[-1])
+        Y_hat = softmax(Z)
+
         return Y_hat
 
     def backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
@@ -124,19 +133,24 @@ class SoftmaxModel:
         assert (
             targets.shape == outputs.shape
         ), f"Output shape: {outputs.shape}, targets: {targets.shape}"
-
         # A list of gradients.
         # For example, self.grads[0] will be the gradient for the first hidden layer
         self.zero_grad()
 
-        # hidden -> output layer
-        err_2 = (outputs - targets).T
-        self.grads[1] = np.dot(err_2, self.hidden_layer_output_A) / X.shape[0]
-        self.grads[1] = self.grads[1].T
+        # output layer -> last hidden layer
+        err = (outputs - targets).T
+        self.grads[-1] = np.dot(err, self.hidden_layer_output_A[-1]) / X.shape[0]
+        self.grads[-1] = self.grads[-1].T
 
-        # input -> hidden layer
-        err_1 = np.multiply(self.hidden_layer_output_sigmoid_derivative.T, np.dot(self.ws[1], err_2))
-        self.grads[0] = np.dot(err_1, X) / X.shape[0]
+        # last hidden layer -> other hidden layers
+        for i in np.arange(len(self.ws)-2, 0, -1):
+            err = np.multiply(self.hidden_layer_output_sigmoid_derivative[i].T, np.dot(self.ws[i + 1], err))
+            self.grads[i] = np.dot(err, self.hidden_layer_output_A[i - 1]) / X.shape[0]
+            self.grads[i] = self.grads[i].T
+
+        # first hidden layer -> input layer
+        err = np.multiply(self.hidden_layer_output_sigmoid_derivative[0].T, np.dot(self.ws[1], err))
+        self.grads[0] = np.dot(err, X) / X.shape[0]
         self.grads[0] = self.grads[0].T
 
         for grad, w in zip(self.grads, self.ws):
