@@ -113,18 +113,31 @@ class SoftmaxModel:
         self.hidden_layer_output_A = []
         self.hidden_layer_output_sigmoid_derivative = []
 
+
         # input -> first hidden layer
         Z = X.dot(self.ws[0])
-        A = sigmoid(Z)
+
+        if self.use_improved_sigmoid:
+            A = improved_sigmoid(Z)
+        else:
+            A = sigmoid(Z)
         self.hidden_layer_output_A.append(A)
-        self.hidden_layer_output_sigmoid_derivative.append(sigmoid_derivative(Z))
+
+        if self.use_improved_sigmoid:
+            self.hidden_layer_output_sigmoid_derivative.append(improved_sigmoid_derivative(Z))
+        else:
+            self.hidden_layer_output_sigmoid_derivative.append(sigmoid_derivative(Z))
 
         # first hidden layer -> other hidden layers
         for i in np.arange(1, len(self.ws)-1):
             Z = A.dot(self.ws[i])
-            A = sigmoid(Z)
+            if self.use_improved_sigmoid:
+                A = improved_sigmoid(Z)
+                self.hidden_layer_output_sigmoid_derivative.append(improved_sigmoid_derivative(Z))
+            else:
+                A = sigmoid(Z)
+                self.hidden_layer_output_sigmoid_derivative.append(sigmoid_derivative(Z))
             self.hidden_layer_output_A.append(A)
-            self.hidden_layer_output_sigmoid_derivative.append(sigmoid_derivative(Z))
 
         # last hidden layer -> output layer
         Z = A.dot(self.ws[-1])
