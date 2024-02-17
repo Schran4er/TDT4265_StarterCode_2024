@@ -74,6 +74,8 @@ class BaseTrainer:
 
         global_step = 0
         for epoch in range(num_epochs):
+            if epoch % 5 == 0:
+                print(f"epoch: {epoch}")
             train_loader = utils.batch_loader(
                 self.X_train, self.Y_train, self.batch_size, shuffle=self.shuffle_dataset)
             for X_batch, Y_batch in iter(train_loader):

@@ -56,15 +56,21 @@ class SoftmaxTrainer(BaseTrainer):
         """
         # (task 2c)
         loss = 0
-
         logits = self.model.forward(X_batch)
         self.model.backward(X_batch, logits, Y_batch)   
 
-        for layer_idx in range(len(self.model.ws)):
-            self.model.ws[layer_idx] = self.model.ws[layer_idx] - self.learning_rate * self.model.grads[layer_idx]
-        loss=cross_entropy_loss(Y_batch, logits)  # sol
+        for layer_idx in range(len(self.model.ws)): 
+            grad = self.model.grads[layer_idx]
+            if self.use_momentum: 
+                grad = self.momentum_gamma * self.previous_grads[layer_idx]  + grad
+                self.previous_grads[layer_idx] = grad.copy() 
+            self.model.ws[layer_idx] = self.model.ws[layer_idx] - self.learning_rate * grad
+        loss = cross_entropy_loss(Y_batch, logits) 
 
         return loss
+
+
+    
 
     def validation_step(self):
         """

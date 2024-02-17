@@ -75,7 +75,12 @@ class SoftmaxModel:
         for size in self.neurons_per_layer:
             w_shape = (prev, size)
             print("Initializing weight to shape:", w_shape)
-            w = np.zeros(w_shape)
+            if self.use_improved_weight_init: 
+                std = 1 / np.sqrt(w_shape[0])
+                weights = np.random.normal(scale=std, size=w_shape) 
+                w = weights
+            else: 
+                w = np.zeros(w_shape)
             self.ws.append(w)
             prev = size
         self.grads = [None for i in range(len(self.ws))]
@@ -95,15 +100,29 @@ class SoftmaxModel:
             return 1 / (1 + np.exp(-x))
         def sigmoid_derivative(x):
             return sigmoid(x) * (1 - sigmoid(x))
+        
+        def improved_sigmoid(x):
+            return 1.7159 * np.tanh((2/3) * x)
+        def improved_sigmoid_derivative(x):
+            return 1.7159 * (2/3) * 1 / np.power(np.cosh((2*x)/3), 2)
+
+
         def softmax(Z: np.ndarray) -> np.ndarray:
             # ## Softmax for [batch size, num_outputs] !!
             return np.exp(Z) / np.sum(np.exp(Z), axis=1, keepdims=True)     # from assignement 1
 
         # input -> hidden layer
         Z_J = X.dot(self.ws[0])
-        A_J = sigmoid(Z_J)
+        if self.use_improved_sigmoid:
+            A_J = improved_sigmoid(Z_J)
+        else:
+            A_J = sigmoid(Z_J)
         self.hidden_layer_output_A = A_J
-        self.hidden_layer_output_sigmoid_derivative = sigmoid_derivative(Z_J)
+
+        if self.use_improved_sigmoid:
+            self.hidden_layer_output_sigmoid_derivative = improved_sigmoid_derivative(Z_J)
+        else:
+            self.hidden_layer_output_sigmoid_derivative = sigmoid_derivative(Z_J)
 
         # hidden -> output layer
         Z_K = A_J.dot(self.ws[1])
