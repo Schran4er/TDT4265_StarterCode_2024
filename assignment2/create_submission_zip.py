@@ -23,10 +23,12 @@ files_to_include = {
     "task2": [".py"],
     "task2a": [".py"],
     "task3": [".py"],
-    "task4c": [".py"],
+    # "task4c": [".py"],
+    "task4ab": [".py"],
+    "task4cde": [".py"],
     "trainer": [".py"],
     "utils": [".py"],
-    "mnist.py": [".py"]
+    "mnist": [".py"]
 
 }
 zipfile_path = "assignment_code.zip"
