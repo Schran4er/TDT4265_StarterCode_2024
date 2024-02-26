@@ -3,11 +3,6 @@ import utils
 np.random.seed(1)
 
 
-
-def sigmoid(x):
-    return 1/(1 + np.exp(-x))
-
-
 def pre_process_images(X: np.ndarray):
     """
     Args:
@@ -17,12 +12,8 @@ def pre_process_images(X: np.ndarray):
     """
     assert X.shape[1] == 784,\
         f"X.shape[1]: {X.shape[1]}, should be 784"
-
-    X_normalized = (X - 127.5) / 127.5
-    # bias trick:
-    X_normalized_bias = np.insert(X_normalized, X_normalized.shape[1], values=1, axis=1)
-
-    return X_normalized_bias
+    # TODO implement this function (Task 2a)
+    return X
 
 
 def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
@@ -33,22 +24,17 @@ def cross_entropy_loss(targets: np.ndarray, outputs: np.ndarray) -> float:
     Returns:
         Cross entropy error (float)
     """
+    # TODO implement this function (Task 2a)
     assert targets.shape == outputs.shape,\
         f"Targets shape: {targets.shape}, outputs: {outputs.shape}"
-    
-    y_n = targets
-    y_n_hat = outputs
-    C_n = -(y_n * np.log(y_n_hat) + (1 - y_n) * np.log(1 - y_n_hat))
-    loss = np.mean(C_n)
-
-    return loss
+    return 0
 
 
 class BinaryModel:
 
     def __init__(self):
         # Define number of input nodes
-        self.I = 28*28 + 1 # since this is the dimension of each image + bias trick
+        self.I = None
         self.w = np.zeros((self.I, 1))
         self.grad = None
 
@@ -59,16 +45,8 @@ class BinaryModel:
         Returns:
             y: output of model with shape [batch size, 1]
         """
-
-        # forward_pass = []
-        # for batch_element in X[:,]:
-        #     sigmoid_result = sigmoid(batch_element.dot(self.w))
-        #     forward_pass.append(sigmoid_result)
-        # output = np.array(forward_pass)
-
-        output = sigmoid(X.dot(self.w))
-        
-        return output
+        # TODO implement this function (Task 2a)
+        return None
 
     def backward(self, X: np.ndarray, outputs: np.ndarray, targets: np.ndarray) -> None:
         """
@@ -78,19 +56,12 @@ class BinaryModel:
             outputs: outputs of model of shape: [batch size, 1]
             targets: labels/targets of each image of shape: [batch size, 1]
         """
-
+        # TODO implement this function (Task 2a)
         assert targets.shape == outputs.shape,\
             f"Output shape: {outputs.shape}, targets: {targets.shape}"
-        
-        grad = -1*((X.T).dot(targets - outputs))
-        self.grad = grad / len(outputs)    # fixme: it is weird, that this works only with a division by len(outputs)
-
-        # error = outputs - targets
-        # self.grad = np.dot(X.T, error) / X.shape[0]
-
+        self.grad = np.zeros_like(self.w)
         assert self.grad.shape == self.w.shape,\
             f"Grad shape: {self.grad.shape}, w: {self.w.shape}"
-
 
     def zero_grad(self) -> None:
         self.grad = None
