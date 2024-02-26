@@ -15,8 +15,12 @@ def calculate_accuracy(X: np.ndarray, targets: np.ndarray, model: BinaryModel) -
     Returns:
         Accuracy (float)
     """
-    # TODO Implement this function (Task 2c)
-    accuracy = 0.0
+    
+    predictions = model.forward(X)
+    predictions_rounded = (predictions >= 0.5).astype(int)
+    correct_predictions = (targets == predictions_rounded).sum() # "The prediction is determined as 1 if ŷ ≥ 0.5 else 0"
+
+    accuracy = correct_predictions / len(predictions)
     return accuracy
 
 
@@ -26,7 +30,7 @@ class LogisticTrainer(BaseTrainer):
         """
         Perform forward, backward and gradient descent step here.
         The function is called once for every batch (see trainer.py) to perform the train step.
-        The function returns the mean loss value which is then automatically logged in our variable self.train_history.
+        The function returns the mean loss value which is then automatically logged in our variable self.train_history.     #! TODO ?!
 
         Args:
             X: one batch of images
@@ -34,8 +38,11 @@ class LogisticTrainer(BaseTrainer):
         Returns:
             loss value (float) on batch
         """
-        # TODO: Implement this function (task 2b)
-        loss = 0
+        # fixme: is this correct?
+        outputs = self.model.forward(X_batch)   
+        self.model.backward(X_batch, outputs, Y_batch)   
+        self.model.w -= self.learning_rate * self.model.grad
+        loss = cross_entropy_loss(Y_batch, outputs)
         return loss
 
     def validation_step(self):
@@ -63,7 +70,8 @@ class LogisticTrainer(BaseTrainer):
 
 def main():
     # hyperparameters DO NOT CHANGE IF NOT SPECIFIED IN ASSIGNMENT TEXT
-    num_epochs = 50
+    num_epochs = 50 # for 2b-c
+    # num_epochs = 500 # for 2d-e
     learning_rate = 0.05
     batch_size = 128
     shuffle_dataset = False
@@ -114,7 +122,7 @@ def main():
     plt.xlabel("Number of Training Steps")
     plt.ylabel("Accuracy")
     plt.legend()
-    plt.savefig("task2b_binary_train_accuracy.png")
+    plt.savefig("task2c_binary_train_accuracy.png")
     plt.show()
 
     # Task 2e - Create a comparison between training with and without shuffling
