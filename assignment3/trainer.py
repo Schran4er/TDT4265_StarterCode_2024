@@ -4,6 +4,7 @@ import time
 import collections
 import utils
 import pathlib
+import numpy as np
 
 
 def compute_loss_and_accuracy(
@@ -22,6 +23,8 @@ def compute_loss_and_accuracy(
     """
     average_loss = 0
     accuracy = 0
+    batch_losses = []
+    batch_accuracies = []
     # TODO: Implement this function (Task  2a)
     with torch.no_grad():
         for (X_batch, Y_batch) in dataloader:
@@ -30,10 +33,22 @@ def compute_loss_and_accuracy(
             Y_batch = utils.to_cuda(Y_batch)
             # Forward pass the images through our model
             output_probs = model(X_batch)
-
+            
             # Compute Loss and Accuracy
+            loss = loss_criterion(output_probs, Y_batch)
+
+            outputs = output_probs.argmax(dim=1)
+            targets = Y_batch
+            accuracy = (outputs == targets).sum() / len(outputs)
+
+            batch_losses.append(loss)
+            batch_accuracies.append(accuracy)
 
             # Predicted class is the max index over the column dimension
+    
+    average_loss = torch.mean(torch.stack(batch_losses))
+    accuracy = torch.mean(torch.stack(batch_accuracies))
+
     return average_loss, accuracy
 
 
