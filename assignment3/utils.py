@@ -96,6 +96,10 @@ def plot_loss(
     """
     global_steps = list(loss_dict.keys())
     loss = list(loss_dict.values())
+    if type(loss[0]) == float:
+        loss = [tensor for tensor in loss]
+    else:
+        loss = [tensor.cpu().detach().numpy() for tensor in loss]
     if npoints_to_average == 1 or not plot_variance:
         plt.plot(global_steps, loss, label=label)
         return

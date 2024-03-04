@@ -556,7 +556,7 @@ def main():
     # You can try to change this and check if you still get the same result!
     utils.set_seed(0)
     print(f"Using device: {utils.get_device()}")
-    epochs = 10
+    epochs = 1
 
     all_trainers = []
     all_plot_names = []
