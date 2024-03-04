@@ -136,7 +136,7 @@ def main():
     batch_size = 64
     learning_rate = 5e-2
     early_stop_count = 4
-    dataloaders = load_cifar10(batch_size)
+    dataloaders = load_cifar10(batch_size, data_augmentation=False)
     model = ExampleModel(image_channels=3, num_classes=10)
     
     trainer = Trainer(

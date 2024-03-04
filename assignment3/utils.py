@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pathlib
 import random
+from trainer import Trainer
 
 # Allow torch/cudnn to optimize/analyze the input/output shape of convolutions
 # To optimize forward/backward pass.
@@ -111,10 +112,33 @@ def plot_loss(
         loss_std.append(np.std(points))
         steps.append(step)
     plt.plot(steps, mean_loss, label=f"{label} (mean over {npoints_to_average} steps)")
-    plt.fill_between(
-        steps,
-        np.array(mean_loss) - np.array(loss_std),
-        np.array(mean_loss) + loss_std,
-        alpha=0.2,
-        label=f"{label} variance over {npoints_to_average} steps",
-    )
+    # plt.fill_between(
+    #     steps,
+    #     np.array(mean_loss) - np.array(loss_std),
+    #     np.array(mean_loss) + loss_std,
+    #     alpha=0.2,
+    #     label=f"{label} variance over {npoints_to_average} steps",
+    # )
+
+
+
+def create_plots_multiple(trainers: list[Trainer], plot_names: list[str], name):
+    plot_path = pathlib.Path("plots")
+    plot_path.mkdir(exist_ok=True)
+    # Save plots and show them
+    plt.figure(figsize=(20, 8))
+    plt.subplot(1, 2, 1)
+    plt.title("Cross Entropy Loss")
+    for trainer, plot_name in zip(trainers, plot_names):
+        plot_loss(
+            trainer.train_history["loss"], label=f"{plot_name}: Training loss", npoints_to_average=10
+        )
+        plot_loss(trainer.validation_history["loss"], label=f"{plot_name} Validation loss", npoints_to_average=10)
+    plt.legend()
+    plt.subplot(1, 2, 2)
+    plt.title("Accuracy")
+    for trainer, plot_name in zip(trainers, plot_names):
+        plot_loss(trainer.validation_history["accuracy"], label=f"{plot_name} Validation Accuracy", npoints_to_average=10)
+    plt.legend()
+    plt.savefig(plot_path.joinpath(f"{name}_plot.png"))
+    plt.show()
