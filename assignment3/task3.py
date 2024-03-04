@@ -70,10 +70,10 @@ class ExampleModel(nn.Module):
             padding = 2
 
         if convolution_type == ConvolutionType.POOLING:
-            stride = 1 # TODO: should this be like this?
+            stride = 1 
             pooling_stride = 2
         elif convolution_type == ConvolutionType.STRIDED_CONVOLUTIONS:
-            stride = 1 # TODO: should this be like this?
+            stride = 1
             pooling_stride = 4
             padding = 1
 
@@ -800,7 +800,7 @@ def main():
     # model b has the best accuracy curve
 
     # to avoid an excessive amount of models to train and compare, the next recommendations described under 
-    # "regularization", "opimizers" and "activation functions" were added at once
+    # "opimizers" and "activation functions" were added at once
     # on top of that, to make the model learn faster, batch normalization was added
     
     # nn.LogSimoid() produced an unhealthy loss curve with spikes, to the next tried activation function is LeakyReLu() since it is more similar to the 
