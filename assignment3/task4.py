@@ -36,7 +36,7 @@ if __name__ == "__main__":
     batch_size = 32
     learning_rate = 5e-4
     early_stop_count = 4
-    dataloaders = load_cifar10(batch_size, data_augmentation=True)
+    dataloaders = load_cifar10(batch_size, resize_task4=True)
     
     model = Model()
 

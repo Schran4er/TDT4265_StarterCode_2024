@@ -18,7 +18,7 @@ def get_data_dir():
     return "data/cifar10"
 
 
-def load_cifar10(batch_size: int, data_augmentation, validation_fraction: float = 0.1, resize_task4: bool = False,
+def load_cifar10(batch_size: int, data_augmentation: bool=False, validation_fraction: float = 0.1, resize_task4: bool = False,
                  ) -> typing.List[torch.utils.data.DataLoader]:
     # Note that transform train will apply the same transform for
     # validation!
