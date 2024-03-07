@@ -18,28 +18,58 @@ def get_data_dir():
     return "data/cifar10"
 
 
-def load_cifar10(batch_size: int, data_augmentation, validation_fraction: float = 0.1
+def load_cifar10(batch_size: int, data_augmentation, validation_fraction: float = 0.1, resize_task4: bool = False,
                  ) -> typing.List[torch.utils.data.DataLoader]:
     # Note that transform train will apply the same transform for
     # validation!
 
+    # for task4:
+    if resize_task4:    # change to mean and std of ImageNet
+        mean=(0.485, 0.456, 0.406)
+        std=(0.229, 0.224, 0.225)
+    else:
+        mean = (0.5, 0.5, 0.5)
+        std = (.25, .25, .25)
+
     # data_augmentation: task 3_i:
     if data_augmentation:
-        transform_train = v2.Compose([
-            v2.RandomHorizontalFlip(p=0.5),
-            v2.ToTensor(),
-            v2.Normalize(mean, std),
-        ])
+        if resize_task4:
+            transform_train = v2.Compose([
+                v2.Resize((224, 224)),
+                v2.RandomHorizontalFlip(p=0.5),
+                v2.ToTensor(),
+                v2.Normalize(mean, std),
+            ])
+        else:
+            transform_train = v2.Compose([
+                v2.RandomHorizontalFlip(p=0.5),
+                v2.ToTensor(),
+                v2.Normalize(mean, std),
+            ])
     else:
-        transform_train = transforms.Compose([
+        if resize_task4:
+            transform_train = transforms.Compose([
+                transforms.Resize((224, 224)),
+                transforms.ToTensor(),
+                transforms.Normalize(mean, std),
+            ])
+        else:
+            transform_train = transforms.Compose([
+                transforms.ToTensor(),
+                transforms.Normalize(mean, std),
+            ])
+
+    if resize_task4:
+        transform_test = transforms.Compose([
+            transforms.Resize((224, 224)),
             transforms.ToTensor(),
             transforms.Normalize(mean, std),
         ])
-
-    transform_test = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize(mean, std)
-    ])
+    else:
+        transform_test = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize(mean, std)
+        ])
     
     data_train = datasets.CIFAR10(get_data_dir(),
                                   train=True,
