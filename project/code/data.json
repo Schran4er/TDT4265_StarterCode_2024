@@ -1,0 +1,27 @@
+{
+    "training": [
+            {
+                "image": "asoca_grand_challenge/Normal/CTCA/Normal_1.nrrd",
+                "label": "asoca_grand_challenge/Normal/Annotations/Normal_1.nrrd"
+            },
+            {
+                "image": "asoca_grand_challenge/Normal/CTCA/Normal_2.nrrd",
+                "label": "asoca_grand_challenge/Normal/Annotations/Normal_2.nrrd"
+            }
+        ],
+    "validation": [
+            {
+                "image": "asoca_grand_challenge/Normal/CTCA/Normal_6.nrrd",
+                "label": "asoca_grand_challenge/Normal/Annotations/Normal_6.nrrd"
+            },
+            {
+                "image": "asoca_grand_challenge/Normal/CTCA/Normal_6.nrrd",
+                "label": "asoca_grand_challenge/Normal/Annotations/Normal_8.nrrd"
+            }
+    ],
+    "testing": [
+            {
+                "image": "asoca_grand_challenge/Normal/Annotations/Normal_9.nrrd"
+            }
+    ]
+}

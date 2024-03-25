@@ -16,5 +16,19 @@ dependencies:
       - lightning
       - wandb
       - munch
+      - jupyter
+      - monai
+      - pynrrd
+      - pandas
+
+
+# install:
+# $ conda env create -f environment.yml
+
+# update:
+# $ conda env update --name tdt4265 --file environment.yml --prune
+
+# activate:
+# $ conda activate tdt4265
       
 
