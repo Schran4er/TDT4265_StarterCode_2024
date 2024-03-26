@@ -1,9 +1,21 @@
-take task2 !
+Task 2: Medical Image Segmentatio
 
 Cybele lab hours:
 Mondays 15:15 - 17:00 and
 Thursdays 12:00 - 14:00
 
+
+Morgen:
+wie ist tutorial Stand? 
+    https://www.youtube.com/watch?v=8ZCWLC3xI_Q
+    https://docs.monai.io/en/stable/ (getting started)
+    https://github.com/Project-MONAI/tutorials (3d segmentation)
+    https://github.com/Project-MONAI/tutorials/blob/main/3d_segmentation/spleen_segmentation_3d.ipynb
+
+
+zuerst simple architektur 
+    -> refinement
+    - ✅ test cuda in notebook on idun, login node? gpu node? interactive slurm job? https://www.hpc.ntnu.no/idun/
 
 Plan:
  - Data exploration: nrrd, vtp, stl data
@@ -17,7 +29,9 @@ Plan:
 - see MONAI
 
 - Pre-processing pipeline:
+    - keep in mind that different .nrrd files may have differenz z-dimension -> SpacingD correct pixdim
     -> divide into training/test/val (because testset doesn't have labels)
+    -> ✅ set random seed (in monai) for comparable results
     -> Data augmentation: crop/rotate/flip/... (look at previous task (assignement 3))
     - Convert data to usable format for a ML model:
         - use 3D augmentation (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC9952534/ "Comparing 3D, 2.5D, and 2D Approaches to Brain Image Auto-Segmentation")
