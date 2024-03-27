@@ -3,6 +3,7 @@ dependencies:
   - pip
   - python=3.10
   - pip:
+      # - torchmetrics <= 0.5.0
       - nbconvert==7.14.2
       - numpy==1.26.3
       - pandoc==2.3
@@ -19,7 +20,7 @@ dependencies:
       - jupyter
       - monai
       - pynrrd
-      - pandas
+      - pandas==1.2.4
 
 
 # install:

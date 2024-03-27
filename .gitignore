@@ -3,5 +3,7 @@
 *__pycache__
 *data
 
+**/wandb
+**/checkpoints
 **/.DS_Store
 **/*playground*.ipynb

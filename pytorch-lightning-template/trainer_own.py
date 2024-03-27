@@ -11,7 +11,7 @@ import yaml
 from pathlib import Path
 
 from monai.metrics import DiceMetric
-from monai.losses import DiceLoss
+from monai.losses import DiceLoss, DiceFocalLoss
 from monai.networks.nets import UNet
 from monai.networks.layers import Norm
 
@@ -21,7 +21,7 @@ torch.set_float32_matmul_precision('medium')
 cwd = "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/"
 config = munch.munchify(yaml.load(open(cwd + "config.yaml"), Loader=yaml.FullLoader))
 
-DEVICE = "cuda"
+DEVICE = "cuda:0"
 
 class LitModel(pl.LightningModule):
     def __init__(self, config):
@@ -43,8 +43,10 @@ class LitModel(pl.LightningModule):
         ).to(DEVICE)
         
         # self.loss_fn = nn.CrossEntropyLoss()
-        self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)
-        self.acc_fn = Accuracy(task="multiclass", num_classes=self.config.num_classes)
+        # self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)
+        self.loss_fn = DiceFocalLoss()
+        self.acc_fn = Accuracy(task="multiclass", num_classes=self.config.num_classes)      # todo HD95 and/or Dice
+        # self.acc_fn = DiceMetric(include_background=False, reduction="mean")
     
     def configure_optimizers(self):
         # optimizer = torch.optim.Adam(model.parameters(), 1e-4)

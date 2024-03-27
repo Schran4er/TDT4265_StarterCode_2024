@@ -11,7 +11,8 @@ import yaml
 from pathlib import Path
 
 torch.set_float32_matmul_precision('medium')
-config = munch.munchify(yaml.load(open("config.yaml"), Loader=yaml.FullLoader))
+cwd = "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/"
+config = munch.munchify(yaml.load(open(cwd + "config.yaml"), Loader=yaml.FullLoader))
 
 class LitModel(pl.LightningModule):
     def __init__(self, config):

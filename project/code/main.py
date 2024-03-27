@@ -32,24 +32,24 @@ if __name__ == '__main__':
     # todo: verstehen was die einzelnen compose Dinge tun
     train_transforms = Compose(
         [
-            LoadImaged(keys=["image", "label"]),
-            EnsureChannelFirstd(keys=["image", "label"]),
-            # Orientationd(keys=["image", "label"]), # unifies the data orientation based on the affine matrix
-            ScaleIntensityd(keys="image"), # normalization
+            LoadImaged(keys=["sample", "label"]),
+            EnsureChannelFirstd(keys=["sample", "label"]),
+            # Orientationd(keys=["sample", "label"]), # unifies the data orientation based on the affine matrix
+            ScaleIntensityd(keys="sample"), # normalization
             # RandCropByPosNegLabeld(
-            #     keys=["image", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4
+            #     keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4
             # ), # what does this do?
-            # RandRotate90d(keys=["image", "label"], prob=0.5, spatial_axes=[0, 2]),
-            Resized(keys=["image", "label"], spatial_size=[512,512,200]),
+            # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+            Resized(keys=["sample", "label"], spatial_size=[512,512,200]),
         ]
     )
     val_transforms = Compose(
         [
-            LoadImaged(keys=["image", "label"]),
-            EnsureChannelFirstd(keys=["image", "label"]),
-            # Orientationd(keys=["image", "label"]), # unifies the data orientation based on the affine matrix
-            ScaleIntensityd(keys="image"), # normalization
-            Resized(keys=["image", "label"], spatial_size=[512,512,200]),
+            LoadImaged(keys=["sample", "label"]),
+            EnsureChannelFirstd(keys=["sample", "label"]),
+            # Orientationd(keys=["sample", "label"]), # unifies the data orientation based on the affine matrix
+            ScaleIntensityd(keys="sample"), # normalization
+            Resized(keys=["sample", "label"], spatial_size=[512,512,200]),
         ]
     )
 
@@ -108,7 +108,7 @@ if __name__ == '__main__':
         for batch_data in train_loader:
             step += 1
             inputs, labels = (
-                batch_data["image"].to(device),
+                batch_data["sample"].to(device),
                 batch_data["label"].to(device),
             )
             optimizer.zero_grad()
@@ -127,7 +127,7 @@ if __name__ == '__main__':
             with torch.no_grad():
                 for val_data in val_loader:
                     val_inputs, val_labels = (
-                        val_data["image"].to(device),
+                        val_data["sample"].to(device),
                         val_data["label"].to(device),
                     )
                     roi_size = (160, 160, 160)

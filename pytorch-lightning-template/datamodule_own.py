@@ -37,55 +37,19 @@ class ASOCADataModule(pl.LightningDataModule):
     def setup(self, stage=None):
         # Split the dataset into train and validation sets
 
-        # train_data = load_decathlon_datalist(self.data_dir, data_list_key="training")
-        # val_data = load_decathlon_datalist(self.data_dir, data_list_key="validation")
-        # test_data = load_decathlon_datalist(cwd + "project/code/data.json", data_list_key="test")
-        # TODO: what about test_data?
+        train_files = load_decathlon_datalist(self.data_dir, data_list_key="training")
+        val_files = load_decathlon_datalist(self.data_dir, data_list_key="validation")
+        test_files = load_decathlon_datalist(self.data_dir, data_list_key="test")
 
-        # train_dataset = CacheDataset(data=train_data, transform=self.get_transforms("train"), cache_rate=1.0, num_workers=4)
-        # val_dataset = CacheDataset(data=val_data, transform=self.get_transforms("val"), cache_rate=1.0, num_workers=4)
-
-        # train_dataset = datasets.CIFAR100(root=self.data_root, train=True, transform=self.get_transforms("train"))
-        # val_dataset = datasets.CIFASR100(root=self.data_root, train=True, transform=self.get_transforms("val"))
-        # train_dataset = datasets.VisionDataset(root=self.data_dir, train=True, transform=self.get_transforms("train"))
-        # val_dataset = datasets.VisionDataset(root=self.data_dir, train=True, transform=self.get_transforms("val"))
-       
-        # train_dataset = MONAIDecathlonToTorchvision(train_data, transform=self.get_transforms("train"))
-        # val_dataset = MONAIDecathlonToTorchvision(val_data, transform=self.get_transforms("val"))
-
-        data_transforms = transforms.Compose([
-            LoadImaged(keys=["sample", "label"]),
-            EnsureChannelFirstd(keys=["sample", "label"]),
-            ScaleIntensityd(keys="sample"), # normalization
-            # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
-            # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
-            ToTensor()
-        ])
-
-        training_files = [{"sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_1.nrrd", 
-                           "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_1.nrrd"},
-                           {"sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_2.nrrd", 
-                           "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_2.nrrd"},
-                           {"sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_3.nrrd", 
-                           "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_3.nrrd"},] 
-
-        val_files = [{"sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_4.nrrd", 
-                           "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_4.nrrd"},
-                           {"sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_5.nrrd", 
-                           "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_5.nrrd"},] 
-
-        train_dataset = CustomDataset(data=training_files, transform=data_transforms)
-        val_dataset = CustomDataset(data=val_files, transform=data_transforms)
-        # train_dataset = CacheDataset(data=training_files, transform=data_transforms)
-        # val_dataset = CacheDataset(data=val_files, transform=data_transforms)
+        train_dataset = CustomDataset(data=train_files, transform=self.get_transforms("train"))
+        val_dataset = CustomDataset(data=val_files, transform=self.get_transforms("val"))
+        test_dataset = CustomDataset(data=test_files, transform=self.get_transforms("test"))
 
         self.train_dataset = train_dataset
         self.val_dataset = val_dataset
-
-        test_files = [{"sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_6.nrrd", 
-                           "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_6.nrrd"}] 
-        test_dataset = CustomDataset(data=test_files, transform=data_transforms)
         self.test_dataset = test_dataset
+
+        # TODO: split manually or by param? Cross-Validation?
         # indices = torch.randperm(len(train_dataset))
         # val_size = int(len(train_dataset) * self.train_split_ratio)
         # self.train_dataset = Subset(train_dataset, indices[-val_size:])
@@ -111,35 +75,33 @@ class ASOCADataModule(pl.LightningDataModule):
         ]
         
         if split == "train":
-            # return transforms.Compose([
-            #     *shared_transforms,
-            #     # LoadImaged(keys=["image", "label"]),
-            #     # EnsureChannelFirstd(keys=["image", "label"]),
-
-            #     # transforms.RandomCrop(32, padding=4, padding_mode='reflect'), 
-            #     # transforms.RandomHorizontalFlip(),
-            # ])
             return monai.transforms.Compose([
-                *shared_transforms,
                 LoadImaged(keys=["sample", "label"]),
                 EnsureChannelFirstd(keys=["sample", "label"]),
                 ScaleIntensityd(keys="sample"), # normalization
-                Resized(keys=["sample", "label"], spatial_size=[512,512,200]),
+                # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
+                # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                ToTensor()
             ])
             
         elif split == "val":
-            return monai.transforms.Compose([
-                *shared_transforms,
+            return monai.transforms.Compose([                
                 LoadImaged(keys=["sample", "label"]),
                 EnsureChannelFirstd(keys=["sample", "label"]),
                 ScaleIntensityd(keys="sample"), # normalization
-                Resized(keys=["sample", "label"], spatial_size=[512,512,200]),
+                # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
+                # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                ToTensor()
             ])
         
         elif split == "test":
-            return transforms.transforms.Compose([
-                *shared_transforms,
-                # ...
+            return transforms.transforms.Compose([                
+                LoadImaged(keys=["sample", "label"]),
+                EnsureChannelFirstd(keys=["sample", "label"]),
+                ScaleIntensityd(keys="sample"), # normalization
+                # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
+                # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                ToTensor()
             ])
 
  

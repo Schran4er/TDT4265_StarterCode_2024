@@ -1,28 +1,32 @@
 {
     "training": [
-            {
-                "image": "../../data/ASOCA/Normal/CTCA/Normal_1.nrrd",
-                "label": "../../data/ASOCA/Normal/Annotations/Normal_1.nrrd"
-            },
-            {
-                "image": "../../data/ASOCA/Normal/CTCA/Normal_2.nrrd",
-                "label": "../../data/ASOCA/Normal/Annotations/Normal_2.nrrd"
-            }
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_1.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_1.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_2.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_2.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_3.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_3.nrrd"
+        } 
         ],
     "validation": [
-            {
-                "image": "../../data/ASOCA/Normal/CTCA/Normal_6.nrrd",
-                "label": "../../data/ASOCA/Normal/Annotations/Normal_6.nrrd"
-            },
-            {
-                "image": "../../data/ASOCA/Normal/CTCA/Normal_6.nrrd",
-                "label": "../../data/ASOCA/Normal/Annotations/Normal_8.nrrd"
-            }
-    ],
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_4.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_4.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_5.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_5.nrrd"
+        }
+        ],
     "test": [
-            {
-                "image": "../../data/ASOCA/Normal/CTCA/Normal_9.nrrd",
-                "label": "../../data/ASOCA/Normal/Annotations/Normal_9.nrrd"
-            }
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/CTCA/Diseased_6.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Diseased/Annotations/Diseased_6.nrrd"
+        }
     ]
 }
