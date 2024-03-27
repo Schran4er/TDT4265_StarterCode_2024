@@ -23,7 +23,7 @@ train_split_ratio: 0.8
 data_root: ./data
 checkpoint_folder: ./checkpoints/
 
-data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data.json
+data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data_copy.json
 
 
 

@@ -1,4 +1,4 @@
-Task 2: Medical Image Segmentatio
+Task 2: Medical Image Segmentation
 
 Cybele lab hours:
 Mondays 15:15 - 17:00 and
@@ -17,8 +17,13 @@ zuerst simple architektur
     -> refinement
     - ✅ test cuda in notebook on idun, login node? gpu node? interactive slurm job? https://www.hpc.ntnu.no/idun/
 
+Todos:
+- code und ordner aufräumen!!
+- preprocessing schreiben! (felix)
+- Do we need to detect/classify between normal/diseased or just segmentate them all
+
 Plan:
- - Data exploration: nrrd, vtp, stl data
+ - Data exploration: nrrd, vtp, stl data ✅
         Diseased/Normal
         ├── Annotations --> images segmentated by the 3 experts manually -> ground truth!
         ├── CTCA --> whole scans (2D) / raw data! goal: detect aorta, generate 3d (centerline & surfacemeshes), classify normal/diseased
@@ -26,11 +31,11 @@ Plan:
         ├── SurfaceMeshes --> aorta surfaces
         └── Testset_Disease/Testset_Normal -> useless because not labelled
 
-- see MONAI
+- see MONAI ✅
 
 - Pre-processing pipeline:
-    - keep in mind that different .nrrd files may have differenz z-dimension -> SpacingD correct pixdim
-    -> divide into training/test/val (because testset doesn't have labels)
+    - keep in mind that different .nrrd files may have differenz z-dimension -> SpacingD correct pixdim ✅
+    -> divide into training/test/val (because testset doesn't have labels) -> Felix
     -> ✅ set random seed (in monai) for comparable results
     -> Data augmentation: crop/rotate/flip/... (look at previous task (assignement 3))
     - Convert data to usable format for a ML model:
@@ -57,6 +62,7 @@ Plan:
     - note and justify/explain the import changes!!
 - do the same with another architecture
 
+- ensure that we only train on ONE gpu (-> TA session)
 
 - runtime analysis
     - runtime = inference time: how fast can the model detect? (in real application)
@@ -65,6 +71,7 @@ Plan:
 
 
 Documentation:
+- Visualization: show annotation and AI segmentation result
 - Readme for code (how to train, use the model etc., conda env)
 - Technical documentation
 - Presentation
@@ -91,3 +98,12 @@ Dataset infos (nrrd):
     12 endian: little
     13 encoding: gzip
     14 space origin: (-88.300003051757855,-128.80000305175787,-244.37500000000014)      -> global coordinates of first voxel
+
+
+Mittwoch:
+    - Preprocessing Grundmodell
+    - Refactoring
+    - fix Accuracy (-> look at inference output?)
+    - Read into UNet:
+        architecture with randomly initialized weights
+        - related work research: pick a model (with random weights) as baseline, then the same but pretrained, then try different loss/acc functions

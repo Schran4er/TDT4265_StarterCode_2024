@@ -1,8 +1,6 @@
 import lightning.pytorch as pl
 from torch.utils.data import DataLoader, Subset, Dataset
 from torchvision import datasets, transforms
-from PIL import Image
-import torch
 import monai
 from monai.data import CacheDataset, load_decathlon_datalist
 from monai.transforms import (
@@ -17,6 +15,8 @@ from monai.transforms import (
     ScaleIntensityd,
     Orientationd,
     ToTensor,
+    Padd,
+    SpatialPadd,
 )
 
 
@@ -81,6 +81,8 @@ class ASOCADataModule(pl.LightningDataModule):
                 ScaleIntensityd(keys="sample"), # normalization
                 # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
                 # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")),
+                SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
                 ToTensor()
             ])
             
@@ -91,6 +93,8 @@ class ASOCADataModule(pl.LightningDataModule):
                 ScaleIntensityd(keys="sample"), # normalization
                 # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
                 # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")),
+                SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
                 ToTensor()
             ])
         
@@ -101,6 +105,8 @@ class ASOCADataModule(pl.LightningDataModule):
                 ScaleIntensityd(keys="sample"), # normalization
                 # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
                 # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                # Resized(keys=["image", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")),
+                SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
                 ToTensor()
             ])
 

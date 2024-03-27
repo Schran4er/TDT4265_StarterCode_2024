@@ -1,3 +1,3 @@
 
 
-## todo: data loader? train val test split?
+## todo: train val test split

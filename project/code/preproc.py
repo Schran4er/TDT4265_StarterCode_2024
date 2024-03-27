@@ -60,8 +60,8 @@ def preproc(train_data, val_data):
             # Spacingd(keys=["image", "label"], pixdim=(0.5, 0.5, 0.75), mode=("bilinear", "nearest")),       # resample to new pixel spacing
                                         ### pixdim: interpolation of x,y,z resolution to new spacing in mm !!
             Resized(keys=["image", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")),      # resize image resolution, since different resolutions in z!
-            # Padd(keys=["image", "label"], spatial_size=(512, 512, 224), mode=("constant", "edge")),           # pad image to desired size. Not need if we use Resized?
-            # SpatialPadd(keys=["image", "label"], spatial_size=(512, 512, 210), method="symmetric", mode=("constant", "edge")),    # spatial pad
+            Padd(keys=["image", "label"], spatial_size=(512, 512, 224), mode=("constant", "edge")),           # pad image to desired size. Not need if we use Resized?
+            SpatialPadd(keys=["image", "label"], spatial_size=(512, 512, 210), method="symmetric", mode=("constant", "edge")),    # spatial pad
             CropForegroundd(keys=["image", "label"], source_key="image"),
             # ToTensord(keys=["image", "label"]),       # convert to pytorch tensor
         ]
