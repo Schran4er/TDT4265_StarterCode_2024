@@ -96,6 +96,7 @@ If not specified a temporary directory will be used.
 
 directory = os.environ.get("MONAI_DATA_DIRECTORY")
 root_dir = tempfile.mkdtemp() if directory is None else directory
+root_dir = os.getcwd()
 print(root_dir)
 
 """## Download dataset
@@ -118,6 +119,8 @@ train_images = sorted(glob.glob(os.path.join(data_dir, "imagesTr", "*.nii.gz")))
 train_labels = sorted(glob.glob(os.path.join(data_dir, "labelsTr", "*.nii.gz")))
 data_dicts = [{"image": image_name, "label": label_name} for image_name, label_name in zip(train_images, train_labels)]
 train_files, val_files = data_dicts[:-9], data_dicts[-9:]
+# print(train_files)
+# exit()
 
 """## Set deterministic training for reproducibility"""
 
@@ -245,7 +248,7 @@ dice_metric = DiceMetric(include_background=False, reduction="mean")
 
 """## Execute a typical PyTorch training process"""
 
-max_epochs = 600
+max_epochs = 5000
 val_interval = 2
 best_metric = -1
 best_metric_epoch = -1
@@ -495,5 +498,5 @@ with torch.no_grad():
 Remove directory if a temporary was used.
 """
 
-if directory is None:
-    shutil.rmtree(root_dir)
+# if directory is None:
+#     shutil.rmtree(root_dir)

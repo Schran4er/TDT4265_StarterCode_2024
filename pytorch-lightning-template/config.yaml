@@ -1,8 +1,8 @@
 max_lr: 0.01
 weight_decay: 0.0001
 momentum: 0.9
-max_epochs: 50
-batch_size: 1
+max_epochs: 500
+batch_size: 4
 
 in_channels: 3
 num_classes: 2
@@ -17,13 +17,14 @@ devices: auto
 enable_progress_bar: False
 
 wandb_project: ASOCA
-wandb_experiment_name: ASOCA_idun
+# wandb_experiment_name: ASOCA_idun
+wandb_experiment_name: modelOnSpleen
 
 train_split_ratio: 0.8
 data_root: ./data
 checkpoint_folder: ./checkpoints/
 
-data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data.json
-
+# data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data.json
+data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data_spleen.json
 
 

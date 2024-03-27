@@ -3,8 +3,6 @@ import lightning.pytorch as pl
 from lightning.pytorch.callbacks import EarlyStopping, ModelCheckpoint, LearningRateMonitor
 from lightning.pytorch.loggers import WandbLogger
 import torch
-from torch import nn
-from torchvision.models import resnet50, ResNet50_Weights
 from torchmetrics import Accuracy
 import munch
 import yaml
@@ -20,9 +18,6 @@ torch.set_float32_matmul_precision('medium')
 
 cwd = "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/"
 config = munch.munchify(yaml.load(open(cwd + "config.yaml"), Loader=yaml.FullLoader))
-
-import os
-# os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "caching_allocator"
 
 # DEVICE = torch.device("cuda:0")
 DEVICE = "cuda"
@@ -48,19 +43,20 @@ class LitModel(pl.LightningModule):
         
         # self.loss_fn = nn.CrossEntropyLoss()
         # self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)
-        self.loss_fn = DiceFocalLoss()
+        self.loss_fn = DiceFocalLoss(sigmoid=True)
         # self.acc_fn = Accuracy(task="multiclass", num_classes=self.config.num_classes)      # todo HD95 and/or Dice
-        self.acc_fn = DiceMetric(include_background=False, reduction="mean")
+        self.acc_fn = DiceMetric(include_background=True, reduction="none")
     
     def configure_optimizers(self):
-        # optimizer = torch.optim.Adam(model.parameters(), 1e-4)
-        optimizer = torch.optim.SGD(self.parameters(), lr=self.config.max_lr, momentum=self.config.momentum, weight_decay=self.config.weight_decay)
+        optimizer = torch.optim.Adam(model.parameters(), 1e-4)
+        # optimizer = torch.optim.SGD(self.parameters(), lr=self.config.max_lr, momentum=self.config.momentum, weight_decay=self.config.weight_decay)
         lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.config.max_epochs)
         return [optimizer], [{"scheduler": lr_scheduler, "interval": "epoch"} ]
 
     def forward(self, x):
-        y_hat = self.model(x)
-        return y_hat
+        y_hat = torch.sigmoid(self.model(x))
+        y_hat_thresholded = torch.round(y_hat).to(dtype=dtype)
+        return y_hat_thresholded
 
     def training_step(self, batch, batch_idx):
         x, y = (
@@ -73,7 +69,7 @@ class LitModel(pl.LightningModule):
         self.log_dict({
             "train/loss": loss,
             "train/acc": acc
-        },on_epoch=True, on_step=False, prog_bar=True, sync_dist=True)
+        },on_epoch=True, on_step=True, prog_bar=True, sync_dist=True)
         return loss
 
     def validation_step(self, batch, batch_idx):
@@ -87,7 +83,7 @@ class LitModel(pl.LightningModule):
         self.log_dict({
             "val/loss":loss,
             "val/acc": acc
-        },on_epoch=True, on_step=False, prog_bar=True, sync_dist=True)
+        },on_epoch=True, on_step=True, prog_bar=True, sync_dist=True)
     
     def test_step(self, batch, batch_idx):
         x, y = (
@@ -98,10 +94,11 @@ class LitModel(pl.LightningModule):
         acc = self.acc_fn(y_hat, y).mean()
         self.log_dict({
             "test/acc": acc,
-        },on_epoch=True, on_step=False, prog_bar=True, sync_dist=True)
+        },on_epoch=True, on_step=True, prog_bar=True, sync_dist=True)
 
 if __name__ == "__main__":
     dtype = torch.float32
+    torch.set_grad_enabled(True)
     pl.seed_everything(42)
 
     dm = ASOCADataModule(
@@ -111,7 +108,6 @@ if __name__ == "__main__":
         train_split_ratio=config.train_split_ratio,
         data_root=config.data_root
     )
-    # dm.to(dtype)
 
     torch.cuda.empty_cache() # to prevent CUDA Out Of Memory
     if config.checkpoint_path:
@@ -128,6 +124,7 @@ if __name__ == "__main__":
         check_val_every_n_epoch=config.check_val_every_n_epoch,
         enable_progress_bar=config.enable_progress_bar,
         precision="16-mixed",
+        log_every_n_steps=16,
         # deterministic=True,
         logger=WandbLogger(project=config.wandb_project, name=config.wandb_experiment_name, config=config),
         callbacks=[

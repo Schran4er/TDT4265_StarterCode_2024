@@ -1,0 +1,84 @@
+{
+    "training": [
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_10.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_10.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_12.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_12.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_13.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_13.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_14.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_14.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_16.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_16.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_17.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_17.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_18.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_18.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_19.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_19.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_20.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_20.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_21.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_21.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_22.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_22.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_24.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_24.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_25.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_25.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_26.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_26.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_27.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_27.nii.gz"
+        }
+        ],
+    "validation": [
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_31.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_31.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_32.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_32.nii.gz"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_33.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_33.nii.gz"
+        }
+        ],
+    "test": [
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/imagesTr/spleen_40.nii.gz", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pretrained/Task09_Spleen/labelsTr//spleen_40.nii.gz"
+        }
+    ]
+}

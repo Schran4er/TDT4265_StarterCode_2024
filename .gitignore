@@ -3,6 +3,9 @@
 *__pycache__
 *data
 
+**/data
+**/out
+**/*Task09_Spleen*
 **/wandb
 **/checkpoints
 **/.DS_Store

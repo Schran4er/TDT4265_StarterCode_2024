@@ -1,3 +1,5 @@
+/cluster/home/felixzr/.conda/envs/tdt4265/lib/python3.10/site-packages/nibabel/optpkg.py:101: UserWarning: A NumPy version >=1.22.4 and <1.29.0 is required for this version of SciPy (detected version 1.22.3)
+  pkg = __import__(name, fromlist=fromlist)
 [rank: 0] Seed set to 42
 Using 16bit Automatic Mixed Precision (AMP)
 GPU available: True (cuda), used: True
@@ -5,56 +7,29 @@ TPU available: False, using: 0 TPU cores
 IPU available: False, using: 0 IPUs
 HPU available: False, using: 0 HPUs
 wandb: Currently logged in as: felix-rong (tdt4265-group187). Use `wandb login --relogin` to force relogin
-wandb: - Waiting for wandb.init()...wandb: \ Waiting for wandb.init()...wandb: Tracking run with wandb version 0.16.5
-wandb: Run data is saved locally in ./wandb/run-20240327_142520-97acqkyf
+wandb: Tracking run with wandb version 0.16.5
+wandb: Run data is saved locally in ./wandb/run-20240328_000556-g6frru73
 wandb: Run `wandb offline` to turn off syncing.
-wandb: Syncing run ASOCA_idun
+wandb: Syncing run modelOnSpleen
 wandb: ⭐️ View project at https://wandb.ai/tdt4265-group187/ASOCA
-wandb: 🚀 View run at https://wandb.ai/tdt4265-group187/ASOCA/runs/97acqkyf/workspace
-/cluster/home/felixzr/.conda/envs/tdt4265/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:653: Checkpoint directory /cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/checkpoints/ASOCA/ASOCA_idun exists and is not empty.
+wandb: 🚀 View run at https://wandb.ai/tdt4265-group187/ASOCA/runs/g6frru73/workspace
+/cluster/home/felixzr/.conda/envs/tdt4265/lib/python3.10/site-packages/monai/utils/deprecate_utils.py:321: FutureWarning: monai.transforms.croppad.dictionary CropForegroundd.__init__:allow_smaller: Current default value of argument `allow_smaller=True` has been deprecated since version 1.2. It will be changed to `allow_smaller=False` in version 1.5.
+  warn_deprecated(argname, msg, warning_category)
+/cluster/home/felixzr/.conda/envs/tdt4265/lib/python3.10/site-packages/lightning/pytorch/callbacks/model_checkpoint.py:653: Checkpoint directory /cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/checkpoints/ASOCA/modelOnSpleen exists and is not empty.
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
 
-  | Name    | Type          | Params
-------------------------------------------
-0 | model   | UNet          | 4.8 M 
-1 | loss_fn | DiceFocalLoss | 0     
-------------------------------------------
+  | Name    | Type               | Params
+-----------------------------------------------
+0 | model   | UNet               | 4.8 M 
+1 | loss_fn | DiceFocalLoss      | 0     
+2 | acc_fn  | MulticlassAccuracy | 0     
+-----------------------------------------------
 4.8 M     Trainable params
 0         Non-trainable params
 4.8 M     Total params
 19.232    Total estimated model params size (MB)
 SLURM auto-requeueing enabled. Setting signal handlers.
-/cluster/home/felixzr/.conda/envs/tdt4265/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py:298: The number of training batches (5) is smaller than the logging interval Trainer(log_every_n_steps=50). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
-Metric val/acc improved. New best score: 0.000
-`Trainer.fit` stopped: `max_epochs=10` reached.
-LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
-SLURM auto-requeueing enabled. Setting signal handlers.
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-       Test metric             DataLoader 0
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-        test/acc                    0.0
-────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-wandb: - 0.006 MB of 0.006 MB uploadedwandb: \ 0.006 MB of 0.006 MB uploadedwandb: | 0.006 MB of 0.013 MB uploadedwandb: / 0.011 MB of 0.013 MB uploadedwandb: - 0.013 MB of 0.013 MB uploadedwandb: 
-wandb: Run history:
-wandb:               epoch ▁▂▂▂▃▄▅▅▅▆▇▇▇█
-wandb:             lr-Adam ▁
-wandb:            test/acc ▁
-wandb:           train/acc █▁▁▁▁▁▁▁▁▁
-wandb:          train/loss █▅▃▂▂▁▁▁▁▁
-wandb: trainer/global_step ▁▂▃▃▃▄▅▅▆▆▇▇███
-wandb:             val/acc ▁▁▁
-wandb:            val/loss █▃▁
-wandb: 
-wandb: Run summary:
-wandb:               epoch 10
-wandb:             lr-Adam 0.0
-wandb:            test/acc 0.0
-wandb:           train/acc 0.0
-wandb:          train/loss 1.21678
-wandb: trainer/global_step 50
-wandb:             val/acc 0.0
-wandb:            val/loss 1.20637
-wandb: 
-wandb: 🚀 View run ASOCA_idun at: https://wandb.ai/tdt4265-group187/ASOCA/runs/97acqkyf/workspace
-wandb: Synced 5 W&B file(s), 0 media file(s), 0 artifact file(s) and 0 other file(s)
-wandb: Find logs at: ./wandb/run-20240327_142520-97acqkyf/logs
+/cluster/home/felixzr/.conda/envs/tdt4265/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py:298: The number of training batches (4) is smaller than the logging interval Trainer(log_every_n_steps=16). Set a lower value for log_every_n_steps if you want to see logs for the training epoch.
+Metric val/acc improved. New best score: 0.364
+Metric val/acc improved by 0.051 >= min_delta = 0.0. New best score: 0.416
+Metric val/acc improved by 0.039 >= min_delta = 0.0. New best score: 0.455
