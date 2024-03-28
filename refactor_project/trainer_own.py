@@ -5,7 +5,7 @@ from lightning.pytorch.loggers import WandbLogger
 import torch
 from torchmetrics import Accuracy
 import munch
-import yaml
+import yaml, os
 from pathlib import Path
 
 from monai.metrics import DiceMetric, hausdorff_distance
@@ -14,15 +14,9 @@ from monai.networks.nets import UNet
 from monai.networks.layers import Norm
 
 
-import torch.nn as nn
-import torchvision.models as models
-
-from monai.networks.blocks import Convolution, ResidualUnit
-
-
 torch.set_float32_matmul_precision('medium')
 
-cwd = "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/"
+cwd = os.getcwd()+"/"   #"/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/"
 config = munch.munchify(yaml.load(open(cwd + "config.yaml"), Loader=yaml.FullLoader))
 
 # DEVICE = torch.device("cuda:0")
@@ -33,59 +27,18 @@ class LitModel(pl.LightningModule):
         super().__init__()
         self.config = config
 
-        # weights = ResNet50_Weights.DEFAULT if config.use_pretrained_weights else None
-        # self.model = resnet50(weights=weights)
-        # self.model.fc = nn.Linear(2048, self.config.num_classes)
+        self.model = UNet(
+            spatial_dims=3,
+            in_channels=1,
+            out_channels=1,
+            channels=(16, 32, 64, 128, 256),
+            strides=(2, 2, 2, 2),
+            num_res_units=2,
+            norm=Norm.BATCH,
+        ).to(DEVICE)
 
-        # self.model = UNet(
-        #     spatial_dims=3,
-        #     in_channels=1,
-        #     out_channels=1,
-        #     channels=(16, 32, 64, 128, 256),
-        #     strides=(2, 2, 2, 2),
-        #     num_res_units=2,
-        #     norm=Norm.BATCH,
-        # ).to(DEVICE)
-        
-        
-        resnet50 = models.video.r3d_18(pretrained=True)
-        self.model = resnet50
-        # Remove fully connected layer
-        self.model.encoder = nn.Sequential(*(list(resnet50.children())[:-1]))
-        # Define decoder
-        self.model.decoder = nn.Sequential(
-            nn.ConvTranspose3d(512, 256, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(256, 128, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(128, 64, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(64, 32, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(32, 1, kernel_size=3, stride=2, padding=1, output_padding=1),
-        )
-
-
-        # # ## use spleen trained model on ASOCA dataset
-        # from monai.networks.nets import UNet
-        # from monai.networks.layers import Norm
-        # self.model = UNet(
-        #     spatial_dims=3,
-        #     in_channels=1,
-        #     out_channels=2,
-        #     channels=(16, 32, 64, 128, 256),
-        #     strides=(2, 2, 2, 2),
-        #     num_res_units=2,
-        #     norm=Norm.BATCH,
-        # ).to(DEVICE)
-        # self.model.load_state_dict(torch.load("pretrained/best_metric_model_bak.pth"))
-        # # # Append a conversion layer
-        # # import torch.nn as nn
-        # # self.model.conv_final = nn.Conv3d(2, 1, kernel_size=1)
-        
-        
         # self.loss_fn = nn.CrossEntropyLoss()
-        self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)     # combine Dice + CrossEntropyLoss?
+        self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)     # combine Dice + CrossEntropyLoss
         # self.loss_fn = DiceFocalLoss(sigmoid=True)
         # self.acc_fn = Accuracy(task="multiclass", num_classes=self.config.num_classes)
         self.acc_fn = DiceMetric(include_background=False, reduction="mean")        # todo HD95
@@ -97,9 +50,11 @@ class LitModel(pl.LightningModule):
         return [optimizer], [{"scheduler": lr_scheduler, "interval": "epoch"} ]
 
     def forward(self, x):
-        y_hat = torch.sigmoid(self.model(x))
+        # y_hat = torch.sigmoid(self.model(x))
+        y_hat = torch.nn.functional.relu(self.model(x))
+        # convert to 0/1
         try: y_hat_thresholded = torch.round(y_hat).to(dtype=dtype)
-        except: y_hat_thresholded = torch.round(y_hat).to(dtype=torch.float32)
+        except: y_hat_thresholded = torch.round(y_hat).to(dtype=torch.float32)      # for testing single samples in notebook
         return y_hat_thresholded
 
     def training_step(self, batch, batch_idx):
@@ -153,7 +108,7 @@ if __name__ == "__main__":
         data_root=config.data_root
     )
 
-    torch.cuda.empty_cache() # to prevent CUDA Out Of Memory
+    torch.cuda.empty_cache() # to prevent CUDA Out Of Memory (hopefully..)
     if config.checkpoint_path:
         model = LitModel.load_from_checkpoint(checkpoint_path=config.checkpoint_path, config=config)
         model = model.to(dtype)

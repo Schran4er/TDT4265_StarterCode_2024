@@ -1,0 +1,88 @@
+{
+    "training": [
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_1.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_1.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_2.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_2.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_3.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_3.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_4.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_4.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_5.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_5.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_6.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_6.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_7.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_7.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_8.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_8.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_9.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_9.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_10.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_10.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_11.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_11.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_12.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_12.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_13.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_13.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_14.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_14.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_15.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_15.nrrd"
+        }, 
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_16.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_16.nrrd"
+        }
+        ],
+    "validation": [
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_17.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_17.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_18.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_18.nrrd"
+        }
+        ],
+    "test": [
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_19.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_19.nrrd"
+        },
+        {
+            "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_20.nrrd", 
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_20.nrrd"
+        }
+    ]
+}

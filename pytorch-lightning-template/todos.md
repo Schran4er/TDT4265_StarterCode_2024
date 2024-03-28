@@ -107,3 +107,15 @@ Mittwoch:
     - Read into UNet:
         architecture with randomly initialized weights
         - related work research: pick a model (with random weights) as baseline, then the same but pretrained, then try different loss/acc functions
+
+Donnerstag:
+    - Modell mit vollständigem Datensatz laufen lassen:
+        wenn gut: dann ist das baseline
+            -> investigate data augmentation & postprocessing
+        wenn schlecht: Übungsstunde
+    - refactor -> getan
+    - implement pretrained model
+
+bis zur Übungsstunde:
+    - Felix: Pre- & Postprocessing
+    - Alex: pretrained model zum laufen bringen
