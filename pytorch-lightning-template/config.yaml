@@ -14,17 +14,17 @@ early_stopping_patience: 10
 num_workers: 2
 check_val_every_n_epoch: 3
 devices: auto
-enable_progress_bar: False
+enable_progress_bar: true
 
 wandb_project: ASOCA
-# wandb_experiment_name: ASOCA_idun
-wandb_experiment_name: modelOnSpleen
+wandb_experiment_name: ASOCA_idun
+# wandb_experiment_name: modelOnSpleen
 
 train_split_ratio: 0.8
 data_root: ./data
 checkpoint_folder: ./checkpoints/
 
-# data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data.json
-data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data_spleen.json
+data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data.json
+# data_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/code/data_spleen.json
 
 

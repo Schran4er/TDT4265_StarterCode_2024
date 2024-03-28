@@ -44,8 +44,8 @@ class LitModel(pl.LightningModule):
         # self.loss_fn = nn.CrossEntropyLoss()
         # self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)
         self.loss_fn = DiceFocalLoss(sigmoid=True)
-        self.acc_fn = Accuracy(task="multiclass", num_classes=self.config.num_classes)      # todo HD95 and/or Dice
-        # self.acc_fn = DiceMetric(include_background=False, reduction="mean")
+        # self.acc_fn = Accuracy(task="multiclass", num_classes=self.config.num_classes)      # todo HD95 and/or Dice
+        self.acc_fn = DiceMetric(include_background=False, reduction="mean")
     
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(model.parameters(), 0.01)
@@ -55,15 +55,14 @@ class LitModel(pl.LightningModule):
 
     def forward(self, x):
         y_hat = torch.sigmoid(self.model(x))
-        y_hat_thresholded = torch.round(y_hat).to(dtype=dtype)
+        try: y_hat_thresholded = torch.round(y_hat).to(dtype=dtype)
+        except: y_hat_thresholded = torch.round(y_hat).to(dtype=torch.float32)
         return y_hat_thresholded
 
     def training_step(self, batch, batch_idx):
         x, y = (
-            # batch["sample"].to(DEVICE),
-            # batch["label"].to(DEVICE),
-            batch[batch_idx]["sample"].to(DEVICE),
-            batch[batch_idx]["label"].to(DEVICE),
+            batch["sample"].to(DEVICE),
+            batch["label"].to(DEVICE),
         )
         y_hat = self.forward(x)
         loss = self.loss_fn(y_hat, y)
@@ -76,10 +75,8 @@ class LitModel(pl.LightningModule):
 
     def validation_step(self, batch, batch_idx):
         x, y = (
-            # batch["sample"].to(DEVICE),
-            # batch["label"].to(DEVICE),
-            batch[batch_idx]["sample"].to(DEVICE),
-            batch[batch_idx]["label"].to(DEVICE),
+            batch["sample"].to(DEVICE),
+            batch["label"].to(DEVICE),
         )
         y_hat = self.forward(x)
         loss = self.loss_fn(y_hat, y)
@@ -91,10 +88,8 @@ class LitModel(pl.LightningModule):
     
     def test_step(self, batch, batch_idx):
         x, y = (
-            # batch["sample"].to(DEVICE),
-            # batch["label"].to(DEVICE),
-            batch[batch_idx]["sample"].to(DEVICE),
-            batch[batch_idx]["label"].to(DEVICE),
+            batch["sample"].to(DEVICE),
+            batch["label"].to(DEVICE),
         )
         y_hat = self.forward(x)
         acc = self.acc_fn(y_hat, y).mean()
@@ -130,7 +125,7 @@ if __name__ == "__main__":
         check_val_every_n_epoch=config.check_val_every_n_epoch,
         enable_progress_bar=config.enable_progress_bar,
         precision="16-mixed",
-        log_every_n_steps=16,
+        log_every_n_steps=4,
         # deterministic=True,
         logger=WandbLogger(project=config.wandb_project, name=config.wandb_experiment_name, config=config),
         callbacks=[

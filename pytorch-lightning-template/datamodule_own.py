@@ -18,6 +18,7 @@ from monai.transforms import (
     ScaleIntensityd,
     Orientationd,
     ToTensor,
+    ScaleIntensityRanged,
     Padd,
     SpatialPadd,
     ScaleIntensityRanged,
@@ -70,62 +71,74 @@ class ASOCADataModule(pl.LightningDataModule):
         return DataLoader(self.test_dataset, batch_size=self.batch_size, num_workers=self.num_workers,pin_memory=True, shuffle=False)
     
     def get_transforms(self,split):
+        # mean, std = -848.3641349994796, 1201.188331923214
         # mean = [0.4914, 0.4822, 0.4465]
         # std = [0.2023, 0.1994, 0.2010]
         
         shared_transforms = ([
-            # # Add your transformations here
-            # LoadImaged(keys=["sample", "label"]),
-            # EnsureChannelFirstd(keys=["sample", "label"]),
-            # # Spacingd(keys=["sample", "label"], pixdim=(1.5, 1.5, 2.0), mode=("bilinear", "nearest")),     ##TODO ??
-            # NormalizeIntensityd(keys=["sample"]),
-            # # Resized(keys=["sample"], spatial_size=(256, 256, 128)),           ##TODO ??
-            # CropForegroundd(keys=["sample", "label"], source_key="sample"),
-            # SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
-
-            LoadImaged(keys=["sample", "label"]),
             EnsureChannelFirstd(keys=["sample", "label"]),
-            ScaleIntensityRanged(
-                keys=["sample"],
-                a_min=-57,
-                a_max=164,
-                b_min=0.0,
-                b_max=1.0,
-                clip=True,
-            ),
-            CropForegroundd(keys=["sample", "label"], source_key="sample"),
-            Orientationd(keys=["sample", "label"], axcodes="RAS"),
-            Spacingd(keys=["sample", "label"], pixdim=(1.5, 1.5, 2.0), mode=("bilinear", "nearest")),
-            RandCropByPosNegLabeld(
-                keys=["sample", "label"],
-                label_key="label",
-                spatial_size=(96, 96, 96),
-                pos=1,
-                neg=1,
-                num_samples=4,
-                image_key="sample",
-                image_threshold=0,
-            ),
+            # Spacingd(keys=["sample", "label"], pixdim=[1.5, 1.5, 2.0]), # resolution, maybe not, according to paper?
+            ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), # increase contrast # TODO: values determined using itk_snap -> tools -> image_layer_inspector
         ])
+
+
 
         if split == "train":
             return monai.transforms.Compose([
-                *shared_transforms
+                LoadImaged(keys=["sample", "label"]),
+                EnsureChannelFirstd(keys=["sample", "label"]),
+
+                # Spacingd(keys=["sample", "label"], pixdim=[1.5, 1.5, 2.0], mode="bilinear"), # resolution, maybe not, according to paper?
+                ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), # increase contrast # TODO: values determined using itk_snap -> tools -> image_layer_inspector
+                CropForegroundd(keys=["sample", "label"], source_key="sample"), # crop to region of interest
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")), # adjust so all images of equal size
+                
+                SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
+                ToTensor()
+                # EnsureChannelFirstd(keys=["sampleRuntimeError: Trying to resize storage that is not resizable", "label"]),
+                # ScaleIntensityd(keys="sample"), # normalization
+                # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
+                # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")),
+                # SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
             ])
             
         elif split == "val":
-            return monai.transforms.Compose([                
-                *shared_transforms
+            return monai.transforms.Compose([   
+                LoadImaged(keys=["sample", "label"]),
+                EnsureChannelFirstd(keys=["sample", "label"]),
+
+                # *shared_transforms,
+                ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), # increase contrast # TODO: values determined using itk_snap -> tools -> image_layer_inspector
+                CropForegroundd(keys=["sample", "label"], source_key="sample"), # crop to region of interest
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")), # adjust so all images of equal size
+                
+                SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
+                ToTensor()
+                # EnsureChannelFirstd(keys=["sample", "label"]),
+                # ScaleIntensityd(keys="sample"), # normalization
+                # RandCropByPosNegLabeld(keys=["sample", "label"], label_key="label", spatial_size=[96, 96, 96], pos=1, neg=1, num_samples=4),
+                # RandRotate90d(keys=["sample", "label"], prob=0.5, spatial_axes=[0, 2]),
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")),
+                # SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
             ])
         
         elif split == "test":
-            # TODO! Anpassen, testset nicht augmentieren
-            return transforms.transforms.Compose([                
-                *shared_transforms
+            return transforms.transforms.Compose([   
+                LoadImaged(keys=["sample", "label"]),
+                EnsureChannelFirstd(keys=["sample", "label"]),
+
+                # *shared_transforms,
+                ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), # increase contrast # TODO: values determined using itk_snap -> tools -> image_layer_inspector
+                CropForegroundd(keys=["sample", "label"], source_key="sample"), # crop to region of interest
+                # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")), # adjust so all images of equal size
+                
+                SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
+                ToTensor()
             ])
         
         # "worked" (though sitty acc/loss):
-        # if split == "train":
+        # if split == "train":Dice
         #     return monai.transforms.Compose([
         #         LoadImaged(keys=["sample", "label"]),
         #         EnsureChannelFirstd(keys=["sample", "label"]),

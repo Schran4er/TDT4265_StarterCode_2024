@@ -1,12 +1,12 @@
 #!/bin/sh
 #SBATCH --partition=GPUQ
 #SBATCH --account=ie-idi
-#SBATCH --time=06:00:00
+#SBATCH --time=0-06:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
 #SBATCH --gres=gpu:1
 #SBATCH --cpus-per-task=2
-#SBATCH --mem=32G
+#SBATCH --mem=64G
 #SBATCH --job-name="pytorch-lightning-demo"
 #SBATCH --output=pytorch-lightning-demo.out
 
