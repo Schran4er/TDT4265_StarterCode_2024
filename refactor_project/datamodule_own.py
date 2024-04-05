@@ -71,10 +71,10 @@ class ASOCADataModule(pl.LightningDataModule):
         
         shared_transforms = ([
             EnsureChannelFirstd(keys=["sample", "label"]),
-            ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), # increase contrast # TODO: values determined using itk_snap -> tools -> image_layer_inspector
-            CropForegroundd(keys=["sample", "label"], source_key="sample"), # crop to region of interest
+            # ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), # increase contrast # TODO: values determined using itk_snap -> tools -> image_layer_inspector
+            # CropForegroundd(keys=["sample", "label"], source_key="sample"), # crop to region of interest
 
-            Orientationd(keys=["sample", "label"], axcodes="LPS"),
+            # Orientationd(keys=["sample", "label"], axcodes="LPS"),
             # Spacingd(keys=["sample", "label"], pixdim=[1.5, 1.5, 2.0]), # resolution, maybe not, according to paper?
             # Resized(keys=["sample", "label"], spatial_size=(512, 512, 215), mode=("trilinear", "nearest")), # adjust so all images of equal size
             SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),

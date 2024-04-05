@@ -75,7 +75,7 @@
             "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_18.nrrd"
         }
         ],
-    "test": [
+    "testing": [
         {
             "sample": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/CTCA/Normal_19.nrrd", 
             "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data/ASOCA/Normal/Annotations/Normal_19.nrrd"

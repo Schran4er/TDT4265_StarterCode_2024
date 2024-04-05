@@ -13,12 +13,15 @@ from monai.losses import DiceLoss, DiceFocalLoss
 from monai.networks.nets import UNet
 from monai.networks.layers import Norm
 
+# import torch.nn as nn
+# import torchvision.models as models
 
-import torch.nn as nn
-import torchvision.models as models
+# from monai.networks.blocks import Convolution, ResidualUnit
 
-from monai.networks.blocks import Convolution, ResidualUnit
+# from nnunet.training.model_restore import load_model_and_checkpoint_files
+# from nnunet.training.network_training.nnUNetTrainer import nnUNetTrainer
 
+from pct_net import PCTNet
 
 torch.set_float32_matmul_precision('medium')
 
@@ -45,26 +48,23 @@ class LitModel(pl.LightningModule):
         #     strides=(2, 2, 2, 2),
         #     num_res_units=2,
         #     norm=Norm.BATCH,
-        # ).to(DEVICE)
-        
-        
-        resnet50 = models.video.r3d_18(pretrained=True)
-        self.model = resnet50
-        # Remove fully connected layer
-        self.model.encoder = nn.Sequential(*(list(resnet50.children())[:-1]))
-        # Define decoder
-        self.model.decoder = nn.Sequential(
-            nn.ConvTranspose3d(512, 256, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(256, 128, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(128, 64, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(64, 32, kernel_size=3, stride=2, padding=1, output_padding=1),
-            nn.ReLU(inplace=True),
-            nn.ConvTranspose3d(32, 1, kernel_size=3, stride=2, padding=1, output_padding=1),
-        )
+        # ).to(DEVI2CE)
 
+        # pretraining was with 5 classes, hence class_num = 5
+        params = {"class_num": 5, "in_chns": 1, "input_size":[512, 512, 224], "feature_chns" : [24, 48, 128, 256, 512],"dropout" : [0, 0, 0.2, 0.2, 0.2], "resolution_mode": 1, "multiscale_pred":True}
+        self.model = PCTNet(params=params)
+        checkpoint_path = "/cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/pctnet_pretrain.pt"
+        self.model.load_state_dict(torch.load(checkpoint_path)["model_state_dict"])
+        self.model = self.model.to(DEVICE)
+
+        last_param = None
+        for name, param in self.model.named_parameters():
+            param.requires_grad = False
+            last_param = param
+
+        last_param.requires_grad = True
+        
+        
 
         # # ## use spleen trained model on ASOCA dataset
         # from monai.networks.nets import UNet
@@ -83,7 +83,6 @@ class LitModel(pl.LightningModule):
         # # import torch.nn as nn
         # # self.model.conv_final = nn.Conv3d(2, 1, kernel_size=1)
         
-        
         # self.loss_fn = nn.CrossEntropyLoss()
         self.loss_fn = DiceLoss(to_onehot_y=True, softmax=True)     # combine Dice + CrossEntropyLoss?
         # self.loss_fn = DiceFocalLoss(sigmoid=True)
@@ -97,10 +96,12 @@ class LitModel(pl.LightningModule):
         return [optimizer], [{"scheduler": lr_scheduler, "interval": "epoch"} ]
 
     def forward(self, x):
-        y_hat = torch.sigmoid(self.model(x))
-        try: y_hat_thresholded = torch.round(y_hat).to(dtype=dtype)
-        except: y_hat_thresholded = torch.round(y_hat).to(dtype=torch.float32)
-        return y_hat_thresholded
+        # y_hat = torch.sigmoid(self.model(x))
+        # try: y_hat_thresholded = torch.round(y_hat).to(dtype=dtype)
+        # except: y_hat_thresholded = torch.round(y_hat).to(dtype=torch.float32)
+        # return y_hat_thresholded
+        y_hat = self.model(x)
+        return y_hat
 
     def training_step(self, batch, batch_idx):
         x, y = (

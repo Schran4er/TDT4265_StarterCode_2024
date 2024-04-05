@@ -1,3 +1,5 @@
+import torch
+import numpy as np
 import lightning.pytorch as pl
 from torch.utils.data import DataLoader, Subset, Dataset
 from torchvision import datasets, transforms
@@ -7,8 +9,8 @@ from monai.transforms import (
     CropForegroundd,
     Spacingd,
     NormalizeIntensityd,
-    Resized,
     Activations,
+    Resized,
     EnsureChannelFirstd,
     AsDiscrete,
     Compose,
@@ -68,14 +70,12 @@ class ASOCADataModule(pl.LightningDataModule):
     
     def get_transforms(self,split):
         # mean, std = -848.3641349994796, 1201.188331923214
-        
-
         shared_transforms = ([
             EnsureChannelFirstd(keys=["sample", "label"]),
             ScaleIntensityRanged(keys=["sample"], a_min=-500, a_max=300, b_min=0.0, b_max=1.0, clip=True), 
             CropForegroundd(keys=["sample", "label"], source_key="sample"),
             Orientationd(keys=["sample", "label"], axcodes="LPS"),
-            SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
+            # SpatialPadd(keys=["sample", "label"], spatial_size=(512, 512, 224), method="symmetric", mode=("constant", "edge")),
             ])
 
         if split == "train":
@@ -137,4 +137,15 @@ class CustomDataset(Dataset):
         if self.transform:
             sample_dict = self.transform(sample_dict)
 
+            # convert from single channel to 3-channel, as Resnest expects a 3-channel input
+            sample_tensor = sample_dict["sample"]
+            if sample_tensor.shape[0] == 1:
+                # sample_tensor = torch.cat((sample_tensor, sample_tensor, sample_tensor), dim=0)
+                sample_dict["sample"] = sample_tensor
+
+            label_tensor = sample_dict["label"]
+            if label_tensor.shape[0] == 1:
+                # label_tensor = torch.cat((label_tensor, label_tensor, label_tensor), dim=0)
+                sample_dict["label"] = label_tensor
+            
         return sample_dict

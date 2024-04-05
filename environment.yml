@@ -4,6 +4,17 @@ dependencies:
   - python=3.10
   - pip:
       # - torchmetrics <= 0.5.0
+      - tensorrt
+      - nib
+      - tensorflow
+      - tensorboard
+      - fire
+      - timm
+      - einops
+      - nnunet
+      - fvcore
+      - resnest
+      - SimpleITK
       - nbconvert==7.14.2
       - numpy==1.26.3
       - pandoc==2.3

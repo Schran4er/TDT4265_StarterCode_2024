@@ -1,0 +1,1 @@
+{"testing": [{"image": "./CTCA/Normal_1.nrrd", "label": "./Annotations/Normal_1.nrrd"}], "training": [{"fold": 0, "image": "./CTCA/Normal_1.nrrd", "label": "./Annotations/Normal_2.nrrd"}, {"fold": 1, "image": "./CTCA/Normal_3.nrrd", "label": "./Annotations/Normal_3.nrrd"}, {"fold": 2, "image": "./CTCA/Normal_4.nrrd", "label": "./Annotations/Normal_4.nrrd"}]}

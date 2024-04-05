@@ -5,6 +5,29 @@ Mondays 15:15 - 17:00 and
 Thursdays 12:00 - 14:00
 
 
+QUESTIONS:
+- pipeline is working, results are bad
+https://wandb.ai/tdt4265-group187/ASOCA/reports/Untitled-Report--Vmlldzo3MzMzNDU4
+
+- implement usage of pretrained model in our pipeline
+
+-> Monai NN UNET!
+
+- Pre-processing:
+    - is our preproc ok?
+    - Spacingd required? for isotropic images?! (but keep high resolution) Or use Resized or SpatialPadd? --> Trying out!
+    - Add Frangi filter or other filter for detection of tubular structures? (optional: pretrained NN)
+- Training:
+    - DiceLoss, DiceMetric, Adam optimizer ok?
+- Post-processing:
+    - how important is post-processing?
+    - filter or image processing operations?
+    - pretrained NN needed?
+
+
+
+---
+
 Morgen:
 wie ist tutorial Stand? 
     https://www.youtube.com/watch?v=8ZCWLC3xI_Q
@@ -68,6 +91,7 @@ Plan:
     - runtime = inference time: how fast can the model detect? (in real application)
 - carbon footprint analysis
  - total training time * GPU_power = work -> convert to how far we can drive with a tesla
+ - implement automated analysis. We use approx 13 hrs training for 1kWh, which equals 7.3km for Tesla Model 3 or 1.59 Big Macs
 
 
 Documentation:

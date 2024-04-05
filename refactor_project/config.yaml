@@ -2,22 +2,22 @@ max_lr: 0.001
 weight_decay: 0.0001
 momentum: 0.9
 max_epochs: 500
-batch_size: 4
+batch_size: 2
 
-in_channels: 3
-num_classes: 2
+# in_channels: 3
+# num_classes: 2
 use_pretrained_weights: true
 
 test_model: false
 checkpoint_path:      #checkpoints/*****.ckpt used for 
-early_stopping_patience: 20
+early_stopping_patience: 10
 num_workers: 2
 check_val_every_n_epoch: 3
 devices: auto
 enable_progress_bar: true
 
-wandb_project: ASOCA
-wandb_experiment_name: ASOCA_idun
+wandb_project: check_architecture
+wandb_experiment_name: no_lr_scheduler
 # wandb_experiment_name: modelOnSpleen
 # wandb_experiment_name: SpleenModelOnASOCA
 

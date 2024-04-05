@@ -46,7 +46,8 @@ class LitModel(pl.LightningModule):
     def configure_optimizers(self):
         optimizer = torch.optim.Adam(model.parameters(), lr=self.config.max_lr, weight_decay=self.config.weight_decay)
         # optimizer = torch.optim.SGD(self.parameters(), lr=self.config.max_lr, momentum=self.config.momentum, weight_decay=self.config.weight_decay)
-        lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.config.max_epochs)
+        # lr_scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=self.config.max_epochs)
+        lr_scheduler = None
         return [optimizer], [{"scheduler": lr_scheduler, "interval": "epoch"} ]
 
     def forward(self, x):

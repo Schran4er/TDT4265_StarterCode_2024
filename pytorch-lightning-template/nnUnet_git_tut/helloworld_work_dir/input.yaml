@@ -1,0 +1,3 @@
+modality: CT
+datalist: /cluster/work/felixzr/TDT4265_StarterCode_2024/pytorch-lightning-template/nnUnet_git_tut/helloworld_work_dir/sim_datalist.json
+dataroot: ./helloworld_work_dir/sim_dataroot
