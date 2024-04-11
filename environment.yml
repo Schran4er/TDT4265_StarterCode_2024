@@ -32,6 +32,7 @@ dependencies:
       - monai
       - pynrrd
       - pandas==1.2.4
+      - pyvista
 
 
 # install:
