@@ -143,3 +143,34 @@ Donnerstag:
 bis zur Übungsstunde:
     - Felix: Pre- & Postprocessing
     - Alex: pretrained model zum laufen bringen
+
+
+
+
+
+-----------------------------------------------------
+06.04.: 
+/cluster/work/felixzr/TDT4265_StarterCode_2024/project/model1_auto3dseg
+^beinhält was ich gemacht hab, Kurzfassung: Die model1_auto3seg_main.py startet bei Ausführung ein Training für 3 unterschiedliche Modelle nacheinander für jeweils die angegebene Anzahl an Epochen
+die 3 Modelle sind 'dints', 'segresnet' (segresnet2d wird bei uns nicht trainiert, weil unsere Daten 3d sind) und 'swinunetr' 
+
+Loss bzw. acc kann mit den tensorboard Events files auslesen, siehe dazu bei Bedarf https://pytext.readthedocs.io/en/master/visualize_your_model.html
+
+
+herauszufinden ist: [in den Ordnern sind teilweise docu files drin, ansonsten auch ]
+- [ ] ÜbungsTAs fragen: reicht das schon als "Implement at least two architectures."?
+- [ ] Welche Sachen kann man manuell anpassen? Damit man eine Baseline und iwas was man selber angepasst hat, hat
+    -> unter anderem, kann man wohl 2 unterschiedliche Module einbinden, die extra hyperparameter optimieren (siehe Doku online)
+- [ ] Welcher loss/metric wird da eig. genau verwendet, kann man das anpassen?
+- [] lassen sich die Sachen einzeln trainieren? (wenn ja: dann jedes mal für paar Stunden laufen lassen)
+    -> läuft gerade für swinunetr_4
+        -> ist abgebrochen weil CUDA OutOfMemory, allerdings weird, weil davor hat's ja auch trainiert
+    -> segresnet_0 ist durchgelaufen, hat für 25 Epochen 04:23:49 gebraucht
+- [ ] Wie funktionieren eig. die einzelnen Modelle die wir da trainiert haben?
+- [x] wofür steht jeweils _x: 
+    -> "The folder name suffix indicates the ith fold of N-fold cross-validation."
+
+
+wie präsentieren wir die Ergebnisse? Wäre natürlich cool iwie die ground truth in 3d zu zeigen und dann das was das Model predicted hat (ansonsten das einfach als 2d Bilder; wenn die Ergebnisse shitty sind dann einfach: ja hätten's halt länger trainiert)
+
+

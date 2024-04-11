@@ -105,7 +105,6 @@ def inference():
     pred = np.array(prediction_nib.dataobj)
 
     plot_by_z_slice_idx(150, lbl, pred, "test")
-    pass
 
     
     

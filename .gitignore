@@ -10,3 +10,13 @@
 **/checkpoints
 **/.DS_Store
 **/*playground*.ipynb
+**/data_flat
+pytorch-lightning-template/nnUnet_git_tut/helloworld_work_dir/sim_dataroot/
+pytorch-lightning-template/nnUnet_kitware_tutorial/data_kitnet/
+pytorch-lightning-template/nnUnet_nvidia_tutorial/
+**/dints_*/
+**/segresnet_*/
+**/swinunetr_*/
+# **/algorithm_templates/
+# **/output_dir/
+**/*.pt

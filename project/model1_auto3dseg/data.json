@@ -1,0 +1,213 @@
+{
+    "training": [
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_1.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_1.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_2.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_2.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_3.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_3.nrrd",
+            "fold": 1
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_4.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_4.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_5.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_5.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_6.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_6.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_7.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_7.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_8.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_8.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_9.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_9.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_10.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_10.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_11.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_11.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_12.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_12.nrrd",
+            "fold": 1
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_13.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_13.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_14.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_14.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_15.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_15.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_16.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_16.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_17.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_17.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_18.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_18.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_20.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_20.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_1.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_1.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_2.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_2.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_3.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_3.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_4.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_4.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_5.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_5.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_6.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_6.nrrd",
+            "fold": 3
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_7.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_7.nrrd",
+            "fold": 1
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_8.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_8.nrrd",
+            "fold": 1
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_9.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_9.nrrd",
+            "fold": 1
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_10.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_10.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_11.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_11.nrrd",
+            "fold": 0
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_12.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_12.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_13.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_13.nrrd",
+            "fold": 2
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_14.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_14.nrrd",
+            "fold": 1
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_15.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_15.nrrd",
+            "fold": 4
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_16.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_16.nrrd",
+            "fold": 1
+        }
+    ],
+    "testing": [
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_17.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_17.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_18.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_18.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_19.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_19.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Normal_20.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Normal_20.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_17.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_17.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_18.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_18.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_19.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_19.nrrd"
+        },
+        {
+            "image": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/CTCA_Diseased_20.nrrd",
+            "label": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat/Annotation_Diseased_20.nrrd"
+        }
+    ]
+}
