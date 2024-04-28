@@ -3,7 +3,12 @@
 *__pycache__
 *data
 
+**/*.log
+**/*.out
+**/*.nii.gz
+**/*.pt
 **/data
+**/data*
 **/out
 **/*Task09_Spleen*
 **/wandb
@@ -20,3 +25,5 @@ pytorch-lightning-template/nnUnet_nvidia_tutorial/
 # **/algorithm_templates/
 # **/output_dir/
 **/*.pt
+**/*.zip
+**/*.mp4

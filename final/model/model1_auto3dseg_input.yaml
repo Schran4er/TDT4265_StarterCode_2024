@@ -1,0 +1,1 @@
+{"name": "model1_auto3dseg", "task": "segmentation", "modality": "CT", "datalist": "/cluster/work/felixzr/TDT4265_StarterCode_2024/project/model/data.json", "dataroot": "/cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat"}

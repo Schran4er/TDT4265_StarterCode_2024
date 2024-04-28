@@ -1,0 +1,70 @@
+_meta_: {}
+bundle_root: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet
+ckpt_path: $@bundle_root + '/model'
+data_file_base_dir: /cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat
+data_list_file_path: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/model1_auto3dseg/data.json
+modality: ct
+fold: 0
+input_channels: 1
+output_classes: 2
+class_names: null
+class_index: null
+debug: false
+ckpt_save: true
+cache_rate: null
+roi_size: [224, 224, 144]
+auto_scale_allowed: true
+auto_scale_batch: true
+auto_scale_roi: false
+auto_scale_filters: false
+quick: false
+channels_last: true
+validate_final_original_res: true
+calc_val_loss: false
+amp: true
+log_output_file: null
+cache_class_indices: null
+early_stopping_fraction: 0.001
+determ: false
+learning_rate: 0.0002
+batch_size: 1
+num_images_per_batch: 1
+num_epochs: 1250
+num_warmup_epochs: 3
+sigmoid: false
+resample: false
+resample_resolution: [0.3945310116, 0.3945310116, 0.6249999999999998]
+crop_mode: ratio
+normalize_mode: range
+intensity_bounds: [150.94557037353516, 653.5866908482143]
+num_epochs_per_validation: null
+num_epochs_per_saving: 1
+num_workers: 4
+num_steps_per_image: null
+num_crops_per_image: 1
+loss: {_target_: DiceCELoss, include_background: true, squared_pred: true, smooth_nr: 0,
+  smooth_dr: 1.0e-05, softmax: $not @sigmoid, sigmoid: $@sigmoid, to_onehot_y: $not
+    @sigmoid}
+optimizer: {_target_: torch.optim.AdamW, lr: '@learning_rate', weight_decay: 1.0e-05}
+network:
+  _target_: SegResNetDS
+  init_filters: 32
+  blocks_down: [1, 2, 2, 4, 4]
+  norm: INSTANCE_NVFUSER
+  in_channels: '@input_channels'
+  out_channels: '@output_classes'
+  dsdepth: 4
+finetune: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt'}
+validate: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt', output_path: $@bundle_root
+    + '/prediction_validation', save_mask: false, invert: true}
+infer: {enabled: false, ckpt_name: $@bundle_root + '/model/model.pt', output_path: $@bundle_root
+    + '/prediction_' + @infer#data_list_key, data_list_key: testing}
+anisotropic_scales: true
+spacing_median: [0.3945310116, 0.3945310116, 0.625]
+spacing_lower: [0.31128931, 0.31128931, 0.6249999999999996]
+spacing_upper: [0.493144801972, 0.493144801972, 0.6250000000000002]
+image_size_mm_median: [201.0, 201.0, 139.0]
+image_size_mm_90: [239, 239, 140]
+image_size: [605, 605, 224]
+name: model1_auto3dseg
+task: segmentation

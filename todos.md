@@ -149,6 +149,7 @@ bis zur Übungsstunde:
 
 
 -----------------------------------------------------
+
 06.04.: 
 /cluster/work/felixzr/TDT4265_StarterCode_2024/project/model1_auto3dseg
 ^beinhält was ich gemacht hab, Kurzfassung: Die model1_auto3seg_main.py startet bei Ausführung ein Training für 3 unterschiedliche Modelle nacheinander für jeweils die angegebene Anzahl an Epochen
@@ -174,3 +175,68 @@ herauszufinden ist: [in den Ordnern sind teilweise docu files drin, ansonsten au
 wie präsentieren wir die Ergebnisse? Wäre natürlich cool iwie die ground truth in 3d zu zeigen und dann das was das Model predicted hat (ansonsten das einfach als 2d Bilder; wenn die Ergebnisse shitty sind dann einfach: ja hätten's halt länger trainiert)
 
 
+Präsi:
+https://studntnu-my.sharepoint.com/:p:/g/personal/felixzr_ntnu_no/EU9Z_3owAk5JrNeTixtN7VYBcd5FhQ5CiyuOFs3bvQ__3Q?e=gSbvzC
+
+Report:
+https://www.overleaf.com/9632691999qwtbxyyjrshx#dc43ac
+
+
+Paper Präsi:
+https://docs.google.com/presentation/d/1D_uhf5act_6nipsR3hIWFuQf6EOoXUwZ/edit#slide=id.p1
+
+
+Pipeline / readme:
+- train: train.py...
+- postproc.py
+
+
+
+TODO:
+model3dseg: 
+dints0 -> Model A
+segresnet0 -> Model B
+- wie viele epochen trainieren? für < 12 h  ✅
+    - dints0: 4.5 min / epoch -> max. 158 epochs
+    - segresnet0: 1.55 min / epoch -> ergo max. 464 epochs
+
+- imageCAS daten einlesen✅
+
+- training einleiten: ✅
+    - train on asoca data
+    - pretrain! 12h on imageCAS, then pretrain 12h von ASOCA
+        - herausfinden wie man training fortsetzt von best_metric_model.pt: auf imageCAS trainieren, dann hyper_parameters
+            -> in hyper_parameter.yaml: fine tuning auf true setzen.
+
+
+- postproc + evaluation: graphen (train+val loss&acc), mean dice & HD95 metrics
+    - graphs!!! ✅
+        - graphen (train+val loss&acc) 
+        - table: mean dice & HD95 metrics -> Felix ✅
+    - (run on test dataset: check inference time, graphs, metrics --> not needed, wird automatisch gemacht)
+    - inference time ermitteln: model (model_fol0/best_metric_model.pt) in notebook einlesen, preproc+forward pass durchführen ✅
+    --> script: felix ✅
+    dints0: model/best_metric_model.pt ist bestes model, model/current_model.pt ist aktuelles model
+    segresnet0: model/model.pt ist bestes model, model/model_final.pt ist aktuelles model
+
+- optional: show the 3d model of best and worst performance -> Felix
+
+
+Zeitplan:
+- Di abend Paper Präsi fertig + Aufnahme Paper Alex fertig ✅
+- Mi abend Projekt Präsi inhaltlich fertig (✅)
+- Do nachmittag aufnahme (alex) fertig ✅
+
+
+
+Presentation:
+- rausfinden, was für preproc model3dseg macht! ✅
+    --> /cluster/work/felixzr/TDT4265_StarterCode_2024/project/model1_auto3dseg/dints_0/configs/transforms_train.yaml
+- dints & segresnet architektur: alex ✅
+- inference time:
+    - dints0: 80.56 s per dataset ✅
+    - segresnet0: 6.99 s per dataset ✅
+    - dints with Pretrain: 81.1 s per dataset ✅
+    - segresnet with Pretrain: 6.91 s per dataset ✅
+
+AM ENDE: Über aufagbenstellung gehen und alles abhaken ✅

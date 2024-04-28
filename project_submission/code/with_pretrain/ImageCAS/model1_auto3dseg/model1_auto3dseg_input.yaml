@@ -1,0 +1,1 @@
+{"name": "model1_auto3dseg", "task": "segmentation", "modality": "CT", "datalist": "/work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/model1_auto3dseg/data_ImageCAS.json", "dataroot": "/work/felixzr/TDT4265_StarterCode_2024/data_flat_ImageCAS"}

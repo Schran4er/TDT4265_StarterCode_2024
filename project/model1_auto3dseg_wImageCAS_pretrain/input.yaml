@@ -1,0 +1,5 @@
+name: model1_auto3dseg
+task: segmentation
+modality: CT
+datalist: /cluster/work/felixzr/TDT4265_StarterCode_2024/project/model1_auto3dseg_wImageCAS_pretrain/data_ImageCAS.json
+dataroot: /cluster/work/felixzr/TDT4265_StarterCode_2024/data_flat_ImageCAS

@@ -1,0 +1,110 @@
+- {best_avg_dice_score_epoch: 9, best_avg_dice_score: 0.4361, save_time: 0.8057, time: 0.83
+    hr, train_time: 280.43s, validation_time: 353.88s, epoch_time: 634.31s, model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 10:13:22'}
+- {best_avg_dice_score_epoch: 19, best_avg_dice_score: 0.5036, save_time: 1.0138,
+  time: 1.68 hr, train_time: 283.54s, validation_time: 376.13s, epoch_time: 659.67s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 11:04:21'}
+- {best_avg_dice_score_epoch: 29, best_avg_dice_score: 0.6590, save_time: 1.8333,
+  time: 2.72 hr, train_time: 430.39s, validation_time: 511.96s, epoch_time: 942.36s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 12:06:47'}
+- {best_avg_dice_score_epoch: 59, best_avg_dice_score: 0.6657, save_time: 0.2429,
+  time: 5.28 hr, train_time: 41.21s, validation_time: 286.18s, epoch_time: 327.38s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 14:40:13'}
+- {best_avg_dice_score_epoch: 79, best_avg_dice_score: 0.7076, save_time: 0.2369,
+  time: 5.80 hr, train_time: 56.40s, validation_time: 291.42s, epoch_time: 347.82s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 15:11:52'}
+- {best_avg_dice_score_epoch: 109, best_avg_dice_score: 0.7166, save_time: 0.2428,
+  time: 6.61 hr, train_time: 54.04s, validation_time: 289.71s, epoch_time: 343.75s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 16:00:32'}
+- {best_avg_dice_score_epoch: 119, best_avg_dice_score: 0.7242, save_time: 0.2535,
+  time: 6.94 hr, train_time: 53.16s, validation_time: 290.53s, epoch_time: 343.70s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 16:20:05'}
+- {best_avg_dice_score_epoch: 129, best_avg_dice_score: 0.7315, save_time: 0.2374,
+  time: 7.24 hr, train_time: 73.54s, validation_time: 294.41s, epoch_time: 367.95s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 16:38:13'}
+- {best_avg_dice_score_epoch: 179, best_avg_dice_score: 0.7547, save_time: 0.2490,
+  time: 8.73 hr, train_time: 54.32s, validation_time: 292.22s, epoch_time: 346.54s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/segresnet/model/model.pt,
+  date: '2024-04-23 18:07:12'}
+- {best_avg_dice_score_epoch: 9, best_avg_dice_score: 0.7688, save_time: 0.2772, time: 0.05
+    hr, train_time: 10.03s, validation_time: 67.21s, epoch_time: 77.24s, model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 08:53:22'}
+- {best_avg_dice_score_epoch: 19, best_avg_dice_score: 0.7979, save_time: 0.2822,
+  time: 0.10 hr, train_time: 10.14s, validation_time: 64.89s, epoch_time: 75.04s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 08:56:11'}
+- {best_avg_dice_score_epoch: 49, best_avg_dice_score: 0.8211, save_time: 0.3652,
+  time: 0.24 hr, train_time: 10.39s, validation_time: 64.89s, epoch_time: 75.29s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 09:04:46'}
+- {best_avg_dice_score_epoch: 129, best_avg_dice_score: 0.8258, save_time: 0.2699,
+  time: 0.62 hr, train_time: 10.18s, validation_time: 64.83s, epoch_time: 75.00s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 09:27:32'}
+- {best_avg_dice_score_epoch: 149, best_avg_dice_score: 0.8319, save_time: 0.4395,
+  time: 0.72 hr, train_time: 10.60s, validation_time: 64.87s, epoch_time: 75.47s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 09:33:15'}
+- {best_avg_dice_score_epoch: 159, best_avg_dice_score: 0.8398, save_time: 0.2974,
+  time: 0.76 hr, train_time: 10.57s, validation_time: 64.86s, epoch_time: 75.43s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 09:36:07'}
+- {best_avg_dice_score_epoch: 359, best_avg_dice_score: 0.8413, save_time: 0.2814,
+  time: 1.71 hr, train_time: 10.11s, validation_time: 64.78s, epoch_time: 74.88s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 10:33:05'}
+- {best_avg_dice_score_epoch: 449, best_avg_dice_score: 0.8426, save_time: 0.3603,
+  time: 2.14 hr, train_time: 10.06s, validation_time: 64.89s, epoch_time: 74.95s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 10:58:49'}
+- {best_avg_dice_score_epoch: 469, best_avg_dice_score: 0.8439, save_time: 0.2916,
+  time: 2.24 hr, train_time: 10.20s, validation_time: 64.84s, epoch_time: 75.04s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 11:04:33'}
+- {best_avg_dice_score_epoch: 629, best_avg_dice_score: 0.8452, save_time: 0.2751,
+  time: 3.00 hr, train_time: 10.43s, validation_time: 64.80s, epoch_time: 75.23s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 11:50:11'}
+- {best_avg_dice_score_epoch: 639, best_avg_dice_score: 0.8452, save_time: 0.2978,
+  time: 3.05 hr, train_time: 10.29s, validation_time: 65.10s, epoch_time: 75.39s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 11:53:02'}
+- {best_avg_dice_score_epoch: 799, best_avg_dice_score: 0.8467, save_time: 0.2599,
+  time: 3.81 hr, train_time: 10.04s, validation_time: 64.90s, epoch_time: 74.93s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 12:38:39'}
+- {best_avg_dice_score_epoch: 879, best_avg_dice_score: 0.8544, save_time: 0.4366,
+  time: 4.19 hr, train_time: 11.02s, validation_time: 64.90s, epoch_time: 75.92s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 13:01:33'}
+- {best_avg_dice_score_epoch: 1219, best_avg_dice_score: 0.8572, save_time: 0.2660,
+  time: 5.80 hr, train_time: 10.03s, validation_time: 64.84s, epoch_time: 74.87s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 14:38:29'}
+- {best_avg_dice_score_epoch: 1749, best_avg_dice_score: 0.8577, save_time: 0.2761,
+  time: 8.32 hr, train_time: 10.05s, validation_time: 64.84s, epoch_time: 74.89s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 17:09:45'}
+- {best_avg_dice_score_epoch: 1829, best_avg_dice_score: 0.8583, save_time: 0.2783,
+  time: 8.70 hr, train_time: 10.15s, validation_time: 64.84s, epoch_time: 74.99s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 17:32:32'}
+- {best_avg_dice_score_epoch: 1899, best_avg_dice_score: 0.8607, save_time: 0.2960,
+  time: 9.04 hr, train_time: 10.05s, validation_time: 64.83s, epoch_time: 74.88s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 17:52:27'}
+- {best_avg_dice_score_epoch: 2179, best_avg_dice_score: 0.8631, save_time: 0.2700,
+  time: 10.37 hr, train_time: 10.03s, validation_time: 64.85s, epoch_time: 74.88s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 19:12:15'}
+- {best_avg_dice_score_epoch: 2309, best_avg_dice_score: 0.8635, save_time: 0.2671,
+  time: 10.98 hr, train_time: 10.14s, validation_time: 64.78s, epoch_time: 74.93s,
+  model: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ASOCA/segresnet/model/model.pt,
+  date: '2024-04-24 19:49:20'}

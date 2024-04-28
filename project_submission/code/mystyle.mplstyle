@@ -1,0 +1,26 @@
+### General plotting style. ###
+
+## Figure options ##
+figure.figsize   : 6.0, 4.0   ## figure size in inches
+figure.dpi       : 200        ## scaling of figure in matplotlib
+
+# Resolution for png files
+savefig.dpi   : 500           ## dpi of figure for saving
+
+# Set axes ticks #
+xtick.direction : in    ## direction: in, out, or inout
+ytick.direction : in    ## direction: in, out, or inout
+axes.formatter.limits : -3, 4 ## use scientific notation if log10
+                               ## of the axis range is smaller than the
+                               ## first or larger than the second
+
+# Options for legend
+legend.frameon : false
+legend.fontsize : medium
+
+# Set some basic colors
+## tableau colorblind
+axes.prop_cycle: cycler('color', ['006BA4', 'FF800E', 'ABABAB', '595959', '5F9ED1', 'C85200', '898989','A2C8EC', 'FFBC79', 'CFCFCF'])
+patch.facecolor: 006BA4
+
+image.cmap    : turbo

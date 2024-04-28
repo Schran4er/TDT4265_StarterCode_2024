@@ -1,0 +1,1 @@
+All informations regarding the files & scripts, as well as conda environment setup and model training and inference can be found in the documentation: https://www.overleaf.com/read/dptshpvhqxhx#3a6aeb

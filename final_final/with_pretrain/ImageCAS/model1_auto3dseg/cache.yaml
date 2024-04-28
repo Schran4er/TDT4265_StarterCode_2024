@@ -1,0 +1,2 @@
+{analyze: true, datastats: /work/felixzr/TDT4265_StarterCode_2024/final_final/with_pretrain/ImageCAS/model1_auto3dseg/datastats.yaml,
+  algo_gen: true, train: false}

@@ -1,0 +1,15 @@
+## Font size ##
+font.family        : serif
+font.serif         : Times New Roman
+text.usetex        : true
+font.size          : 7
+
+text.latex.preamble : \usepackage{amsmath}\usepackage{times}\usepackage[version=4]{mhchem}
+
+lines.markersize : 3
+lines.linewidth : 1.0
+
+savefig.bbox  : tight ## 'tight' or 'standard'.
+
+# Parameter necessary for backward compatibility with matplotlib 3.2.2
+text.kerning_factor: 6

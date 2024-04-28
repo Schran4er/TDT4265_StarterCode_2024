@@ -1,0 +1,35 @@
+- {best_avg_dice_score_epoch: 9, best_avg_dice_score: 0.2537, save_time: 0.5401, time: 0.60
+    hr, train_time: 124.06s, validation_time: 522.06s, epoch_time: 646.12s, model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 06:18:31'}
+- {best_avg_dice_score_epoch: 19, best_avg_dice_score: 0.6368, save_time: 0.7457,
+  time: 1.08 hr, train_time: 122.96s, validation_time: 513.48s, epoch_time: 636.64s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 06:47:41'}
+- {best_avg_dice_score_epoch: 39, best_avg_dice_score: 0.6439, save_time: 1.9381,
+  time: 2.06 hr, train_time: 122.42s, validation_time: 512.63s, epoch_time: 635.05s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 07:46:07'}
+- {best_avg_dice_score_epoch: 49, best_avg_dice_score: 0.6442, save_time: 0.5375,
+  time: 2.55 hr, train_time: 122.45s, validation_time: 513.00s, epoch_time: 635.45s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 08:15:25'}
+- {best_avg_dice_score_epoch: 69, best_avg_dice_score: 0.7363, save_time: 0.5314,
+  time: 3.52 hr, train_time: 122.41s, validation_time: 512.87s, epoch_time: 635.28s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 09:13:51'}
+- {best_avg_dice_score_epoch: 119, best_avg_dice_score: 0.7595, save_time: 0.5393,
+  time: 5.96 hr, train_time: 124.02s, validation_time: 512.85s, epoch_time: 636.87s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 11:40:31'}
+- {best_avg_dice_score_epoch: 129, best_avg_dice_score: 0.7819, save_time: 12.8648,
+  time: 6.45 hr, train_time: 124.47s, validation_time: 513.20s, epoch_time: 637.75s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 12:10:08'}
+- {best_avg_dice_score_epoch: 209, best_avg_dice_score: 0.7846, save_time: 0.6164,
+  time: 10.38 hr, train_time: 122.55s, validation_time: 512.43s, epoch_time: 634.98s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 16:05:10'}
+- {best_avg_dice_score_epoch: 239, best_avg_dice_score: 0.7922, save_time: 0.6794,
+  time: 11.84 hr, train_time: 122.59s, validation_time: 512.91s, epoch_time: 635.50s,
+  model: /cluster/work/felixzr/TDT4265_StarterCode_2024/final_final/segresnet/model/model.pt,
+  date: '2024-04-23 17:33:10'}
